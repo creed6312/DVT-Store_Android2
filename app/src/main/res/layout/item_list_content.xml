@@ -14,7 +14,7 @@
 
         <ImageView
             android:id="@+id/idListImage"
-            android:layout_marginTop="25dp"
+            android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
@@ -24,11 +24,11 @@
 
         <TextView
             android:id="@+id/idListTitle"
-            android:layout_below="@id/idListImage"
-            android:layout_centerHorizontal="true"
+            android:layout_gravity="bottom|center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:textAppearance="?attr/textAppearanceListItem" />
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:text="temp"/>
+
     </android.support.v7.widget.CardView>
 </RelativeLayout>
