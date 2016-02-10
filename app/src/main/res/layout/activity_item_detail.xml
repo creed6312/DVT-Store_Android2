@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/idItemDetailImage"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/cart"/>
+
+    <TextView
+        android:id="@+id/idItemDetailName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/idItemDetailImage"
+        android:textSize="26sp"
+        android:padding="10dp"
+        android:layout_marginBottom="22dp"
+        android:text="item Info"/>
+
+    <View
+        android:id="@+id/idDetailDivider"
+        style="@style/Divider"
+        android:layout_below="@id/idItemDetailName"/>
+
+    <TextView
+        android:id="@+id/idItemDetailPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/idDetailDivider"
+        android:layout_alignParentRight="true"
+        android:textSize="22sp"
+        android:padding="5dp"
+        android:textColor="@color/colorPrimary"
+        android:text="200"/>
+
+    <TextView
+        android:id="@+id/idDetailsTitle"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/idDetailDivider"
+        android:textSize="20sp"
+        android:text="Details"/>
+
+    <TextView
+        android:id="@+id/idItemDetailDetails"
+        android:paddingLeft="24dp"
+        android:layout_below="@id/idDetailsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_below="@id/idItemDetailDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/cart"/>
+
+</RelativeLayout>

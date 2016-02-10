@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Categories">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_category1"
+                    android:icon="@drawable/cart"
+                    android:title="Category 1" />
+                <item
+                    android:id="@+id/nav_category2"
+                    android:icon="@drawable/cart"
+                    android:title="Category 2" />
+                <item
+                    android:id="@+id/nav_category3"
+                    android:icon="@drawable/cart"
+                    android:title="Category 3" />
+            </group>
+            </menu>
+    </item>
+
+    <item android:title="Other Stuff">
+        <menu>
+            <item
+                android:id="@+id/nav_extra1"
+                android:icon="@android:drawable/btn_star"
+                android:title="Extra Stuff" />
+            <item
+                android:id="@+id/nav_extra2"
+                android:icon="@android:drawable/btn_star"
+                android:title="Extra Stuff" />
+        </menu>
+    </item>
+
+</menu>
