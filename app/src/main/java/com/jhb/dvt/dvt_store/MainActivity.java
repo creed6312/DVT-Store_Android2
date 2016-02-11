@@ -26,13 +26,9 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.jhb.dvt.dvt_store.Models.BasketItem;
 import com.jhb.dvt.dvt_store.Models.Item;
 import com.jhb.dvt.dvt_store.Utils.Utilities;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,18 +62,18 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
 
     private void createSlider()
     {
-        mDemoSlider = (SliderLayout)findViewById(R.id.slider);
+        mDemoSlider = (SliderLayout) findViewById(R.id.slider);
         featuredItems = new ArrayList<>();
-        featuredItems.add(new Item("1","Dell XPS 13",getString(R.string.item3Description),"http://www.notebookcheck.net/uploads/tx_nbc2/dellXPS13-9343_2.jpg",32000));
-        featuredItems.add(new Item("2","Dell Latitude",getString(R.string.itemDescription2),"http://liliputing.com/wp-content/uploads/2015/12/dell-12-7000_02.jpg",24000));
-        featuredItems.add(new Item("3","Asus  Transformer",getString(R.string.item1Description),"http://4.bp.blogspot.com/-dxEEpqWNetg/VALP0rJZInI/AAAAAAAAAls/ZTr1CzIiA4U/s1600/laptop_tablet_in_one_asus_transformer_book_t100.png",12000));
+        featuredItems.add(new Item("8","Dell XPS 13",getString(R.string.item3Description),"http://www.notebookcheck.net/uploads/tx_nbc2/dellXPS13-9343_2.jpg",32000));
+        featuredItems.add(new Item("9","Dell Latitude",getString(R.string.itemDescription2),"http://liliputing.com/wp-content/uploads/2015/12/dell-12-7000_02.jpg",24000));
+        featuredItems.add(new Item("10","Asus  Transformer",getString(R.string.item1Description),"http://4.bp.blogspot.com/-dxEEpqWNetg/VALP0rJZInI/AAAAAAAAAls/ZTr1CzIiA4U/s1600/laptop_tablet_in_one_asus_transformer_book_t100.png",12000));
 
         for (Item featuredItem : featuredItems){
-            TextSliderView textSliderView = new TextSliderView(this);
-            textSliderView.description(featuredItem.getName()).image(featuredItem.getImageUrl())
+            TextSliderView demoSlider = new TextSliderView(this);
+            demoSlider.description(featuredItem.getName()).image(featuredItem.getImageUrl())
                     .setScaleType(BaseSliderView.ScaleType.Fit)
                     .setOnSliderClickListener(this);
-            mDemoSlider.addSlider(textSliderView);
+            mDemoSlider.addSlider(demoSlider);
         }
         mDemoSlider.setPresetTransformer(SliderLayout.Transformer.FlipHorizontal);
         mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Left_Top);
