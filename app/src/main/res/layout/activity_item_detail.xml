@@ -11,6 +11,82 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:src="@drawable/cart" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/idItemDetailPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:text="200"
+        android:textColor="@color/colorPrimary"
+        android:textSize="22sp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionBuy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="40dp"
+        app:backgroundTint="@android:color/holo_blue_light"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/cart" />
+
+    <TextView
+        android:id="@+id/idDetailQuantity"
+        android:layout_width="51dp"
+        android:layout_height="28dp"
+        android:gravity="center"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="42dp"
+        android:layout_marginTop="14dp"
+        android:textColor="@android:color/white"
+        android:background="@android:color/holo_blue_dark"
+        android:text="2"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatActionMinus"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        app:backgroundTint="@android:color/holo_blue_light"
+        android:layout_marginRight="85dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/minus" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatActionPlus"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        app:backgroundTint="@android:color/holo_blue_light"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/plus" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+
+
+
+
+
+
+
+
+
+
+
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -20,73 +96,18 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/idItemDetailPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
-                android:text="200"
-                android:textColor="@color/colorPrimary"
-                android:textSize="22sp" />
 
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/floatingActionBuy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="40dp"
-                app:backgroundTint="@android:color/holo_blue_light"
-                android:layout_marginBottom="5dp"
-                android:src="@drawable/cart" />
-
-            <TextView
-                android:id="@+id/idDetailQuantity"
-                android:layout_width="51dp"
-                android:layout_height="28dp"
-                android:gravity="center"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="42dp"
-                android:layout_marginTop="14dp"
-                android:textColor="@android:color/white"
-                android:background="@android:color/holo_blue_dark"
-                android:text="2"/>
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/floatActionMinus"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                app:backgroundTint="@android:color/holo_blue_light"
-                android:layout_marginRight="85dp"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/minus" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/floatActionPlus"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                app:backgroundTint="@android:color/holo_blue_light"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/plus" />
 
             <View
                 android:id="@+id/idDetailDividerPrice"
                 style="@style/DividerHorizontalThin"
-                android:layout_below="@id/floatingActionBuy" />
+                />
 
             <TextView
                 android:id="@+id/idItemDetailName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/floatingActionBuy"
+                
                 android:padding="20dp"
                 android:text="item Info"
                 android:textSize="22sp" />
@@ -114,7 +135,8 @@
                 android:paddingBottom="40dp"/>
 
 
-        </RelativeLayout>
-    </ScrollView>
 
+    </RelativeLayout>
+    </ScrollView>
+    </RelativeLayout>
 </LinearLayout>
