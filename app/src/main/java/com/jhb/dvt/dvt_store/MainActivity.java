@@ -3,13 +3,12 @@ package com.jhb.dvt.dvt_store;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -20,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
@@ -28,9 +26,13 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.jhb.dvt.dvt_store.Models.BasketItem;
 import com.jhb.dvt.dvt_store.Models.Item;
 import com.jhb.dvt.dvt_store.Utils.Utilities;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Utilities.getBasket(getApplicationContext());
         createSlider();
         setupRecyclerView();
 
@@ -85,14 +88,15 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
 
     private void setupRecyclerView() {
         View recyclerView = findViewById(R.id.item_list);
-        ((RecyclerView)recyclerView).setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+        ((RecyclerView)recyclerView).setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         List<Item> items = new ArrayList<>();
-        items.add(new Item("1","Very Cheap Mug","This is the Cheapest mug you can buy","https://larvalsubjects.files.wordpress.com/2010/04/450x450std-cobalt-blue-mug.jpg",4));
-        items.add(new Item("2","Cheap Mug", "This Mug is Cheap","http://www.9andthreequarters.co.za/media/com_hikashop/upload/standard_coffee_mug.jpg",12));
-        items.add(new Item("3","Fallout Mug","This is a Sweet Mug","http://store.bethsoft.com/media/catalog/product/b/a/barware-mug-fo-thumbsup-full_1.jpg",180));
-        items.add(new Item("4","Crazy Eyes","This Mug comes with free cookies","https://ak-hdl.buzzfed.com/static/enhanced/webdr01/2013/3/8/14/enhanced-buzz-5070-1362770931-3.jpg",40));
-        items.add(new Item("5","The Doughnut","This is the Awesome Doughnut Mug","http://cdn.home-designing.com/wp-content/uploads/2015/10/donut-mug-600x600.jpg",60));
-        items.add(new Item("6","Cow Mug","This mug is perfect if you into cows","http://www.cowdepot.com/bostmugrubotsm.jpg",35));
+        items.add(new Item("1","Very Cheap Mug, big and black in color","This is the Cheapest mug you can buy","https://larvalsubjects.files.wordpress.com/2010/04/450x450std-cobalt-blue-mug.jpg",4));
+        items.add(new Item("2","Cheap Mug round and only comes in white", "This Mug is Cheap","http://www.9andthreequarters.co.za/media/com_hikashop/upload/standard_coffee_mug.jpg",12));
+        items.add(new Item("3","Fallout Mug if fan of fall out the game","This is a Sweet Mug","http://store.bethsoft.com/media/catalog/product/b/a/barware-mug-fo-thumbsup-full_1.jpg",180));
+        items.add(new Item("4","Crazy Eyes comes with free cookies and usb","This Mug comes with free cookies","https://ak-hdl.buzzfed.com/static/enhanced/webdr01/2013/3/8/14/enhanced-buzz-5070-1362770931-3.jpg",40));
+        items.add(new Item("5","The Doughnut special shaped mug","This is the Awesome Doughnut Mug","http://cdn.home-designing.com/wp-content/uploads/2015/10/donut-mug-600x600.jpg",60));
+        items.add(new Item("6","Cow Mug in many different colors","This mug is perfect if you into cows","http://www.cowdepot.com/bostmugrubotsm.jpg",35));
+        items.add(new Item("7","Asus  Transformer, This mug is perfect if you into cows, Asus  Transformer, This mug is perfect if you into cows , Asus  Transformer, This mug is perfect if you into cows",getString(R.string.item1Description),"http://4.bp.blogspot.com/-dxEEpqWNetg/VALP0rJZInI/AAAAAAAAAls/ZTr1CzIiA4U/s1600/laptop_tablet_in_one_asus_transformer_book_t100.png",12000));
 
         assert recyclerView != null;
         ((RecyclerView) recyclerView).setAdapter(new SimpleItemRecyclerViewAdapter(items));
@@ -134,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         intent.putExtra("itemName", featuredItems.get(featuredIndex).getName());
         intent.putExtra("itemImage", featuredItems.get(featuredIndex).getImageUrl());
         intent.putExtra("itemDetails", featuredItems.get(featuredIndex).getDetails());
+        intent.putExtra("itemID",featuredItems.get(featuredIndex).getId());
         intent.putExtra("itemPrice", Utilities.getCurrency(featuredItems.get(featuredIndex).getPrice()));
         startActivity(intent);
     }
@@ -169,11 +174,7 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-
-            return true;
-        }
-        else if (id == R.id.action_settings) {
+        if (id == R.id.action_search) {
             doSearch();
             return true;
         }
@@ -204,6 +205,7 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mItem = mValues.get(position);
             holder.mListTitle.setText(mValues.get(position).getName());
+            holder.mPrice.setText(Utilities.getCurrency(mValues.get(position).getPrice()));
 
             Glide.with(holder.mListImage.getContext())
                     .load(mValues.get(position).getImageUrl())
@@ -219,6 +221,7 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
                     intent.putExtra("itemImage", holder.mItem.getImageUrl());
                     intent.putExtra("itemDetails", holder.mItem.getDetails());
                     intent.putExtra("itemPrice", Utilities.getCurrency(holder.mItem.getPrice()));
+                    intent.putExtra("itemID", holder.mItem.getId());
                     context.startActivity(intent);
                 }
             });
@@ -233,6 +236,7 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
             public final View mView;
             public final ImageView mListImage;
             public final TextView mListTitle;
+            public final TextView mPrice;
             public Item mItem;
 
             public ViewHolder(View view) {
@@ -240,12 +244,9 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
                 mView = view;
                 mListImage = (ImageView) view.findViewById(R.id.idListImage);
                 mListTitle = (TextView) view.findViewById(R.id.idListTitle);
+                mPrice = (TextView)view.findViewById(R.id.idListPrice);
             }
 
-            @Override
-            public String toString() {
-                return super.toString() + " '" + mListTitle.getText() + "'";
-            }
         }
     }
 
