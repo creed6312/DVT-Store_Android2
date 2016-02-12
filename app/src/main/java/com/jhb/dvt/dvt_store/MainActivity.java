@@ -29,11 +29,10 @@ import com.jhb.dvt.dvt_store.Utils.Utilities;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener,
+public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
     private SliderLayout mDemoSlider ;
-    private List<Item> featuredItems ;
     private int featuredIndex ;
 
     FragmentTransaction transaction;
@@ -45,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //gfhygy
 
         Utilities.getBasket(getApplicationContext());
         createSlider();
@@ -61,6 +59,12 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    @Override
+    protected void onResume() {
+        mDemoSlider.startAutoCycle();
+        super.onResume();
+    }
+
     private void addFragments() {
         ItemFragment = new ItemFragment();
         transaction = getSupportFragmentManager().beginTransaction();
@@ -71,23 +75,7 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
     private void createSlider()
     {
         mDemoSlider = (SliderLayout) findViewById(R.id.slider);
-        featuredItems = new ArrayList<>();
-        featuredItems.add(new Item("8","Dell XPS 13",getString(R.string.item3Description),"http://www.notebookcheck.net/uploads/tx_nbc2/dellXPS13-9343_2.jpg",32000));
-        featuredItems.add(new Item("9","Dell Latitude",getString(R.string.itemDescription2),"http://liliputing.com/wp-content/uploads/2015/12/dell-12-7000_02.jpg",24000));
-        featuredItems.add(new Item("10","Asus  Transformer",getString(R.string.item1Description),"http://4.bp.blogspot.com/-dxEEpqWNetg/VALP0rJZInI/AAAAAAAAAls/ZTr1CzIiA4U/s1600/laptop_tablet_in_one_asus_transformer_book_t100.png",12000));
-
-        for (Item featuredItem : featuredItems){
-            TextSliderView demoSlider = new TextSliderView(this);
-            demoSlider.description(featuredItem.getName()).image(featuredItem.getImageUrl())
-                    .setScaleType(BaseSliderView.ScaleType.Fit)
-                    .setOnSliderClickListener(this);
-            mDemoSlider.addSlider(demoSlider);
-        }
-        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.FlipHorizontal);
-        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Left_Top);
-        mDemoSlider.setCustomAnimation(new DescriptionAnimation());
-        mDemoSlider.setDuration(4000);
-        mDemoSlider.addOnPageChangeListener(this);
+        new Json(mDemoSlider,this,"GetFeatured").execute();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -119,29 +107,6 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
             super.onBackPressed();
         }
     }
-
-    @Override
-    public void onSliderClick(BaseSliderView slider) {
-        Intent intent = new Intent(getApplicationContext(), ItemDetailActivity.class);
-        intent.putExtra("itemName", featuredItems.get(featuredIndex).getName());
-        intent.putExtra("itemImage", featuredItems.get(featuredIndex).getImageUrl());
-        intent.putExtra("itemDetails", featuredItems.get(featuredIndex).getDetails());
-        intent.putExtra("itemID",featuredItems.get(featuredIndex).getId());
-        intent.putExtra("itemPrice", Utilities.getCurrency(featuredItems.get(featuredIndex).getPrice()));
-        startActivity(intent);
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
-
-    @Override
-    public void onPageSelected(int position) {
-        featuredIndex = position ;
-        Log.d("Slider Demo", "Page Changed: " + position);
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

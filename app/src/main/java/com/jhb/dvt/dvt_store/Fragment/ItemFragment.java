@@ -35,7 +35,7 @@ public class ItemFragment extends Fragment {
 
         adapter = new SimpleItemRecyclerViewAdapter(itemList);
         rv.setAdapter(adapter);
-        new Json(adapter,itemList).execute();
+        new Json(adapter,itemList,"GetAllProducts").execute();
 
         return rv;
     }

@@ -8,10 +8,22 @@
     tools:context="com.jhb.dvt.dvt_store.MainActivity"
     tools:showIn="@layout/activity_main">
 
+    <TextView
+        android:id="@+id/idFeatured"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Featured Products"
+        android:paddingLeft="5dp"
+        android:textColor="@android:color/white"
+        android:background="?attr/colorPrimary"
+        android:textSize="20sp"/>
+
     <com.daimajia.slider.library.SliderLayout
+        android:layout_below="@id/idFeatured"
         android:id="@+id/slider"
         android:layout_width="match_parent"
-        android:layout_height="180dp">
+        android:layout_height="190dp"
+        android:layout_marginBottom="7dp">
 
     </com.daimajia.slider.library.SliderLayout>
 

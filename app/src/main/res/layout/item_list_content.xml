@@ -38,7 +38,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="82dp"
                 android:gravity="center_vertical"
-                android:paddingLeft="@dimen/item_padding"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:paddingTop="4dp"
                 android:text="temp"
                 android:textAppearance="?attr/textAppearanceListItem" />
@@ -47,7 +48,7 @@
                 android:id="@+id/idListPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/item_padding"
+                android:paddingLeft="5dp"
                 android:paddingTop="10dp"
                 android:text="PRICE"
                 android:textStyle="bold"

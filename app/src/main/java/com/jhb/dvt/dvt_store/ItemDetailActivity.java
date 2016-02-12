@@ -19,9 +19,7 @@ import java.util.List;
 public class ItemDetailActivity extends AppCompatActivity {
 
     TextView itemDetailQuantity ;
-    FloatingActionButton floatingActionBuy ;
-    FloatingActionButton floatActionMinus ;
-    FloatingActionButton floatActionPlus ;
+    FloatingActionButton floatingActionBuy,floatActionMinus,floatActionPlus ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,19 +54,28 @@ public class ItemDetailActivity extends AppCompatActivity {
         for (int i=0; i< Utilities.basketItems.size();i++) {
             if (Utilities.basketItems.get(i).getId().equals(id))
             {
-                floatingActionBuy.setVisibility(View.INVISIBLE);
-                itemDetailQuantity.setVisibility(View.VISIBLE);
-                floatActionMinus.setVisibility(View.VISIBLE);
-                floatActionPlus.setVisibility(View.VISIBLE);
+                showQuantity();
                 itemDetailQuantity.setText(String.valueOf(Utilities.basketItems.get(i).getQuantity()));
                 return;
             }
         }
+        hideQuantity();
+    }
 
+    private void hideQuantity()
+    {
         floatingActionBuy.setVisibility(View.VISIBLE);
         floatActionMinus.setVisibility(View.INVISIBLE);
         floatActionPlus.setVisibility(View.INVISIBLE);
         itemDetailQuantity.setVisibility(View.INVISIBLE);
+    }
+
+    private void showQuantity()
+    {
+        floatingActionBuy.setVisibility(View.INVISIBLE);
+        itemDetailQuantity.setVisibility(View.VISIBLE);
+        floatActionMinus.setVisibility(View.VISIBLE);
+        floatActionPlus.setVisibility(View.VISIBLE);
     }
 
     public void floatActionIncreaseDecrease()
@@ -76,7 +83,6 @@ public class ItemDetailActivity extends AppCompatActivity {
         floatActionPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Snackbar.make(view, "Added to Cart!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
@@ -94,7 +100,6 @@ public class ItemDetailActivity extends AppCompatActivity {
         floatActionMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 for (int i=0; i< Utilities.basketItems.size();i++) {
                     if ( Utilities.basketItems.get(i).getId().equals(getIntent().getStringExtra("itemID")))
                     {
@@ -102,11 +107,10 @@ public class ItemDetailActivity extends AppCompatActivity {
                         itemDetailQuantity.setText(String.valueOf(Utilities.basketItems.get(i).getQuantity()));
                         if (Utilities.basketItems.get(i).getQuantity() < 1)
                         {
+                            Snackbar.make(view, "Removed from Cart!", Snackbar.LENGTH_SHORT)
+                                    .setAction("Action", null).show();
                             Utilities.basketItems.remove(i);
-                            floatingActionBuy.setVisibility(View.VISIBLE);
-                            itemDetailQuantity.setVisibility(View.INVISIBLE);
-                            floatActionMinus.setVisibility(View.INVISIBLE);
-                            floatActionPlus.setVisibility(View.INVISIBLE);
+                            hideQuantity();
                         }
                         Utilities.saveBasket(getApplicationContext());
                         return;
@@ -121,16 +125,13 @@ public class ItemDetailActivity extends AppCompatActivity {
         floatingActionBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Added to Cart!", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Added to Cart!", Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
 
                 Utilities.basketItems.add(new BasketItem(getIntent().getStringExtra("itemID")));
                 Utilities.saveBasket(getApplicationContext());
                 itemDetailQuantity.setText("1");
-                floatingActionBuy.setVisibility(View.INVISIBLE);
-                itemDetailQuantity.setVisibility(View.VISIBLE);
-                floatActionMinus.setVisibility(View.VISIBLE);
-                floatActionPlus.setVisibility(View.VISIBLE);
+                showQuantity();
             }
         });
     }
