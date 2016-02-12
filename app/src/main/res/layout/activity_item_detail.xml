@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <ImageView
@@ -11,64 +11,66 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:src="@drawable/cart" />
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/idItemDetailPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:text="200"
-        android:textColor="@color/colorPrimary"
-        android:textSize="22sp" />
+        <TextView
+            android:id="@+id/idItemDetailPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:text="200"
+            android:textColor="@color/colorPrimary"
+            android:textSize="22sp" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionBuy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="40dp"
-        app:backgroundTint="@android:color/holo_blue_light"
-        android:layout_marginBottom="5dp"
-        android:src="@drawable/cart" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionBuy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="40dp"
+            android:src="@drawable/cart"
+            app:backgroundTint="@android:color/holo_blue_light" />
 
-    <TextView
-        android:id="@+id/idDetailQuantity"
-        android:layout_width="51dp"
-        android:layout_height="28dp"
-        android:gravity="center"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="42dp"
-        android:layout_marginTop="14dp"
-        android:textColor="@android:color/white"
-        android:background="@android:color/holo_blue_dark"
-        android:text="2"/>
+        <TextView
+            android:id="@+id/idDetailQuantity"
+            android:layout_width="51dp"
+            android:layout_height="28dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="42dp"
+            android:layout_marginTop="14dp"
+            android:background="@android:color/holo_blue_dark"
+            android:gravity="center"
+            android:text="2"
+            android:textColor="@android:color/white" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatActionMinus"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        app:backgroundTint="@android:color/holo_blue_light"
-        android:layout_marginRight="85dp"
-        android:layout_marginTop="5dp"
-        android:src="@drawable/minus" />
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatActionPlus"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        app:backgroundTint="@android:color/holo_blue_light"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:src="@drawable/plus" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatActionMinus"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="85dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/minus"
+            app:backgroundTint="@android:color/holo_blue_light" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatActionPlus"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/plus"
+            app:backgroundTint="@android:color/holo_blue_light" />
 
     </RelativeLayout>
 
@@ -76,67 +78,51 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
 
-
-
-
-
-
-
-
-
-
-
-
-
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <RelativeLayout
+        <ScrollView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-
-
-            <View
-                android:id="@+id/idDetailDividerPrice"
-                style="@style/DividerHorizontalThin"
-                />
-
-            <TextView
-                android:id="@+id/idItemDetailName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                
-                android:padding="20dp"
-                android:text="item Info"
-                android:textSize="22sp" />
-
-            <View
-                android:id="@+id/idDetailDivider"
-                style="@style/DividerHorizontalThin"
-                android:layout_below="@id/idItemDetailName" />
-
-            <TextView
-                android:id="@+id/idDetailsTitle"
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/idDetailDivider"
-                android:padding="20dp"
-                android:text="Details"
-                android:textSize="20sp" />
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/idItemDetailDetails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/idDetailsTitle"
-                android:paddingLeft="24dp"
-                android:paddingBottom="40dp"/>
+                <View
+                    android:id="@+id/idDetailDividerPrice"
+                    style="@style/DividerHorizontalThin" />
+
+                <TextView
+                    android:id="@+id/idItemDetailName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:padding="20dp"
+                    android:text="item Info"
+                    android:textSize="22sp" />
+
+                <View
+                    android:id="@+id/idDetailDivider"
+                    style="@style/DividerHorizontalThin"
+                    android:layout_below="@id/idItemDetailName" />
+
+                <TextView
+                    android:id="@+id/idDetailsTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/idDetailDivider"
+                    android:padding="20dp"
+                    android:text="Details"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/idItemDetailDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/idDetailsTitle"
+                    android:paddingBottom="40dp"
+                    android:paddingLeft="24dp" />
 
 
-
-    </RelativeLayout>
-    </ScrollView>
+            </RelativeLayout>
+        </ScrollView>
     </RelativeLayout>
 </LinearLayout>
