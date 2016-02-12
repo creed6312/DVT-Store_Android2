@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //gfhygy
 
         Utilities.getBasket(getApplicationContext());
         createSlider();
