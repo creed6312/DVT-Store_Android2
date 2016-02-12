@@ -1,32 +1,29 @@
 package com.jhb.dvt.dvt_store;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.jhb.dvt.dvt_store.Adapters.SimpleItemRecyclerViewAdapter;
+import com.jhb.dvt.dvt_store.Fragment.ItemFragment;
 import com.jhb.dvt.dvt_store.Models.Item;
+import com.jhb.dvt.dvt_store.Utils.Json;
 import com.jhb.dvt.dvt_store.Utils.Utilities;
 
 import java.util.ArrayList;
@@ -39,6 +36,9 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
     private List<Item> featuredItems ;
     private int featuredIndex ;
 
+    FragmentTransaction transaction;
+    Fragment ItemFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
 
         Utilities.getBasket(getApplicationContext());
         createSlider();
-        setupRecyclerView();
+        addFragments();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -58,6 +58,13 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void addFragments() {
+        ItemFragment = new ItemFragment();
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, ItemFragment);
+        transaction.commit();
     }
 
     private void createSlider()
@@ -80,22 +87,6 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
         mDemoSlider.setCustomAnimation(new DescriptionAnimation());
         mDemoSlider.setDuration(4000);
         mDemoSlider.addOnPageChangeListener(this);
-    }
-
-    private void setupRecyclerView() {
-        View recyclerView = findViewById(R.id.item_list);
-        ((RecyclerView)recyclerView).setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        List<Item> items = new ArrayList<>();
-        items.add(new Item("1","Very Cheap Mug, big and black in color","This is the Cheapest mug you can buy","https://larvalsubjects.files.wordpress.com/2010/04/450x450std-cobalt-blue-mug.jpg",4));
-        items.add(new Item("2","Cheap Mug round and only comes in white", "This Mug is Cheap","http://www.9andthreequarters.co.za/media/com_hikashop/upload/standard_coffee_mug.jpg",12));
-        items.add(new Item("3","Fallout Mug if fan of fall out the game","This is a Sweet Mug","http://store.bethsoft.com/media/catalog/product/b/a/barware-mug-fo-thumbsup-full_1.jpg",180));
-        items.add(new Item("4","Crazy Eyes comes with free cookies and usb","This Mug comes with free cookies","https://ak-hdl.buzzfed.com/static/enhanced/webdr01/2013/3/8/14/enhanced-buzz-5070-1362770931-3.jpg",40));
-        items.add(new Item("5","The Doughnut special shaped mug","This is the Awesome Doughnut Mug","http://cdn.home-designing.com/wp-content/uploads/2015/10/donut-mug-600x600.jpg",60));
-        items.add(new Item("6","Cow Mug in many different colors","This mug is perfect if you into cows","http://www.cowdepot.com/bostmugrubotsm.jpg",35));
-        items.add(new Item("7","Asus  Transformer, This mug is perfect if you into cows, Asus  Transformer, This mug is perfect if you into cows , Asus  Transformer, This mug is perfect if you into cows",getString(R.string.item1Description),"http://4.bp.blogspot.com/-dxEEpqWNetg/VALP0rJZInI/AAAAAAAAAls/ZTr1CzIiA4U/s1600/laptop_tablet_in_one_asus_transformer_book_t100.png",12000));
-
-        assert recyclerView != null;
-        ((RecyclerView) recyclerView).setAdapter(new SimpleItemRecyclerViewAdapter(items));
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -181,70 +172,4 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
     {
 
     }
-
-    public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
-
-        private final List<Item> mValues;
-
-        public SimpleItemRecyclerViewAdapter(List<Item> items) {
-            mValues = items;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_list_content, parent, false);
-            return new ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mItem = mValues.get(position);
-            holder.mListTitle.setText(mValues.get(position).getName());
-            holder.mPrice.setText(Utilities.getCurrency(mValues.get(position).getPrice()));
-
-            Glide.with(holder.mListImage.getContext())
-                    .load(mValues.get(position).getImageUrl())
-                    .crossFade()
-                    .into(holder.mListImage);
-
-            holder.mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Context context = v.getContext();
-                    Intent intent = new Intent(context, ItemDetailActivity.class);
-                    intent.putExtra("itemName", holder.mItem.getName());
-                    intent.putExtra("itemImage", holder.mItem.getImageUrl());
-                    intent.putExtra("itemDetails", holder.mItem.getDetails());
-                    intent.putExtra("itemPrice", Utilities.getCurrency(holder.mItem.getPrice()));
-                    intent.putExtra("itemID", holder.mItem.getId());
-                    context.startActivity(intent);
-                }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return mValues.size();
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            public final View mView;
-            public final ImageView mListImage;
-            public final TextView mListTitle;
-            public final TextView mPrice;
-            public Item mItem;
-
-            public ViewHolder(View view) {
-                super(view);
-                mView = view;
-                mListImage = (ImageView) view.findViewById(R.id.idListImage);
-                mListTitle = (TextView) view.findViewById(R.id.idListTitle);
-                mPrice = (TextView)view.findViewById(R.id.idListPrice);
-            }
-
-        }
-    }
-
-
 }
