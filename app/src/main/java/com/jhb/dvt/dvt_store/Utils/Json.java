@@ -4,15 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
+import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.jhb.dvt.dvt_store.Adapters.SimpleItemRecyclerViewAdapter;
+import com.jhb.dvt.dvt_store.CustomSlider;
 import com.jhb.dvt.dvt_store.ItemDetailActivity;
 import com.jhb.dvt.dvt_store.Models.Item;
+import com.jhb.dvt.dvt_store.R;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -65,16 +70,20 @@ public class Json extends AsyncTask<String, Void, String>  implements BaseSlider
         else if (mDemoSlider != null)
         {
             for (Item featuredItem : items){
-                TextSliderView demoSlider = new TextSliderView(mDemoSlider.getContext());
-                demoSlider.description(featuredItem.getName()).image(featuredItem.getImageUrl())
-                        .setScaleType(BaseSliderView.ScaleType.Fit)
-                        .setOnSliderClickListener(this);
-                mDemoSlider.addSlider(demoSlider);
+
+                CustomSlider customSlider = new CustomSlider(mDemoSlider.getContext());
+                customSlider.description(featuredItem.getName()).image(featuredItem.getImageUrl())
+                        .setScaleType(BaseSliderView.ScaleType.Fit).setOnSliderClickListener(this);
+                customSlider.setPrice(featuredItem.getPrice());
+
+                //TextSliderView demoSlider = new TextSliderView(mDemoSlider.getContext());
+               // demoSlider.description(featuredItem.getName()).image(featuredItem.getImageUrl())
+               //         .setScaleType(BaseSliderView.ScaleType.Fit)
+               //         .setOnSliderClickListener(this);
+                mDemoSlider.addSlider(customSlider);
             }
 
             mDemoSlider.setPresetTransformer(SliderLayout.Transformer.FlipHorizontal);
-            mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Left_Top);
-            mDemoSlider.setCustomAnimation(new DescriptionAnimation());
             mDemoSlider.setDuration(4000);
             mDemoSlider.addOnPageChangeListener(this);
         }
@@ -133,6 +142,7 @@ public class Json extends AsyncTask<String, Void, String>  implements BaseSlider
         reader.endObject();
         return i;
     }
+
     @Override
     public void onSliderClick(BaseSliderView slider) {
         Intent intent = new Intent(context.getApplicationContext(), ItemDetailActivity.class);

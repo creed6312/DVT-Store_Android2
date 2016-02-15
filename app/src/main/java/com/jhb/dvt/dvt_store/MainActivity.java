@@ -1,6 +1,5 @@
 package com.jhb.dvt.dvt_store;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -9,25 +8,15 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.daimajia.slider.library.Animations.DescriptionAnimation;
+import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
-import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
-import com.daimajia.slider.library.Tricks.ViewPagerEx;
-import com.jhb.dvt.dvt_store.Adapters.SimpleItemRecyclerViewAdapter;
 import com.jhb.dvt.dvt_store.Fragment.ItemFragment;
-import com.jhb.dvt.dvt_store.Models.Item;
 import com.jhb.dvt.dvt_store.Utils.Json;
 import com.jhb.dvt.dvt_store.Utils.Utilities;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
@@ -75,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements
     private void createSlider()
     {
         mDemoSlider = (SliderLayout) findViewById(R.id.slider);
+        mDemoSlider.setCustomIndicator((PagerIndicator) findViewById(R.id.custom_indicator));
         new Json(mDemoSlider,this,"GetFeatured").execute();
     }
 
