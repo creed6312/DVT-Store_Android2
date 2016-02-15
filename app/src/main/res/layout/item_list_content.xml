@@ -12,13 +12,24 @@
         app:cardCornerRadius="4dp"
         app:cardElevation="4dp">
 
-        <ImageView
-            android:id="@+id/idListImage"
-            android:layout_width="130dp"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:scaleType="fitXY"
-            android:textAppearance="?attr/textAppearanceListItem" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/idListImage"
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:scaleType="fitXY"
+                android:textAppearance="?attr/textAppearanceListItem" />
+
+            <ProgressBar
+                android:id="@+id/item_loading_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
 
         <View
             android:id="@+id/idListCardDivider"
@@ -48,9 +59,9 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 android:paddingTop="10dp"
-                android:textStyle="bold"
+                android:textAppearance="?attr/textAppearanceListItem"
                 android:textColor="@android:color/holo_red_light"
-                android:textAppearance="?attr/textAppearanceListItem" />
+                android:textStyle="bold" />
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

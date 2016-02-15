@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -60,6 +61,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
                     @Override
                     public void onResourceReady(GlideDrawable drawable, GlideAnimation anim) {
+                        holder.mProgress.setVisibility(View.INVISIBLE);
                         super.onResourceReady(drawable, anim);
                     }
                 });
@@ -90,6 +92,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         public final ImageView mListImage;
         public final TextView mListTitle;
         public final TextView mPrice;
+        public final ProgressBar mProgress;
 
         public ViewHolder(View view) {
             super(view);
@@ -97,6 +100,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
             mListImage = (ImageView) view.findViewById(R.id.idListImage);
             mListTitle = (TextView) view.findViewById(R.id.idListTitle);
             mPrice = (TextView) view.findViewById(R.id.idListPrice);
+            mProgress = (ProgressBar) view.findViewById(R.id.item_loading_bar);
         }
 
     }
