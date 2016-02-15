@@ -52,7 +52,7 @@
                 android:paddingTop="10dp"
                 android:text="PRICE"
                 android:textStyle="bold"
-                android:textColor="@android:color/holo_red_dark"
+                android:textColor="@android:color/holo_red_light"
                 android:textAppearance="?attr/textAppearanceListItem" />
         </LinearLayout>
 
