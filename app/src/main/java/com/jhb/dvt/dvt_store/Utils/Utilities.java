@@ -21,7 +21,7 @@ public class Utilities {
 
     public static List<BasketItem> basketItems;
     public static final String ApiKey = "40dccc93-b3d0-86d5-5efe-efd387306fcd";
-    public static final String HostAddress = "http://192.168.88.10:4501";
+    public static final String HostAddress = "http://creed.ddns.net:4501";
 
     public static String getCurrency(double value)
     {
