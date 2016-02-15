@@ -18,7 +18,6 @@
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:scaleType="fitXY"
-            android:src="@android:drawable/btn_star_big_on"
             android:textAppearance="?attr/textAppearanceListItem" />
 
         <View
@@ -41,7 +40,6 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="4dp"
-                android:text="temp"
                 android:textAppearance="?attr/textAppearanceListItem" />
 
             <TextView
@@ -50,7 +48,6 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 android:paddingTop="10dp"
-                android:text="PRICE"
                 android:textStyle="bold"
                 android:textColor="@android:color/holo_red_light"
                 android:textAppearance="?attr/textAppearanceListItem" />

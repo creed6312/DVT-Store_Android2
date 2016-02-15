@@ -34,7 +34,7 @@ public class Json extends AsyncTask<String, Void, String>  implements BaseSlider
 
     SimpleItemRecyclerViewAdapter adapter ;
     List<Item> items ;
-    String ApiKey = "0354aa02-e294-b0c2-68df-e8d7bc09e1ec";
+    String ApiKey = "40dccc93-b3d0-86d5-5efe-efd387306fcd";
     String Call ;
     SliderLayout mDemoSlider;
     int index = 0 ;
@@ -57,7 +57,7 @@ public class Json extends AsyncTask<String, Void, String>  implements BaseSlider
     @Override
     protected String doInBackground(String... params) {
         try {
-            return doPost("http://creed.ddns.net:4501/Api/" + Call + "?apiToken=" + ApiKey);
+            return doPost("http://192.168.1.132/Api/" + Call + "?apiToken=" + ApiKey);
         } catch (IOException e) {
             return "Unable to retrieve data. URL may be invalid.";
         }
@@ -75,11 +75,6 @@ public class Json extends AsyncTask<String, Void, String>  implements BaseSlider
                 customSlider.description(featuredItem.getName()).image(featuredItem.getImageUrl())
                         .setScaleType(BaseSliderView.ScaleType.Fit).setOnSliderClickListener(this);
                 customSlider.setPrice(featuredItem.getPrice());
-
-                //TextSliderView demoSlider = new TextSliderView(mDemoSlider.getContext());
-               // demoSlider.description(featuredItem.getName()).image(featuredItem.getImageUrl())
-               //         .setScaleType(BaseSliderView.ScaleType.Fit)
-               //         .setOnSliderClickListener(this);
                 mDemoSlider.addSlider(customSlider);
             }
 

@@ -35,7 +35,7 @@
         android:layout_below="@id/slider"
         android:gravity="center_horizontal"
         custom:shape="oval"
-        custom:selected_drawable="@drawable/dvt_small"
+        custom:selected_drawable="@drawable/dvt_vector_logo"
         custom:selected_padding_left="5dp"
         custom:selected_padding_right="5dp"
         custom:unselected_color="#55333333"
