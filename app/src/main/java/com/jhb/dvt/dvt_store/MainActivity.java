@@ -1,5 +1,6 @@
 package com.jhb.dvt.dvt_store;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -33,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         Utilities.getBasket(getApplicationContext());
         createSlider();
         addFragments();

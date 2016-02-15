@@ -15,6 +15,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
             <ImageView
                 android:id="@+id/idItemDetailImage"
                 android:layout_width="match_parent"
@@ -22,6 +26,13 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="5dp"
                 android:src="@drawable/cart" />
+
+            <ProgressBar
+                android:id="@+id/detail_loading_bar"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="wrap_content"

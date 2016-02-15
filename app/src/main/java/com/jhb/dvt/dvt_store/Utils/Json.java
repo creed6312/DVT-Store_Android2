@@ -1,23 +1,19 @@
 package com.jhb.dvt.dvt_store.Utils;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
 
-import com.daimajia.slider.library.Animations.DescriptionAnimation;
-import com.daimajia.slider.library.Indicators.PagerIndicator;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
-import com.jhb.dvt.dvt_store.Adapters.SimpleItemRecyclerViewAdapter;
+import com.jhb.dvt.dvt_store.Adapters.ItemRecyclerViewAdapter;
 import com.jhb.dvt.dvt_store.CustomSlider;
 import com.jhb.dvt.dvt_store.ItemDetailActivity;
 import com.jhb.dvt.dvt_store.Models.Item;
-import com.jhb.dvt.dvt_store.R;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,18 +28,18 @@ import java.util.List;
  */
 public class Json extends AsyncTask<String, Void, String>  implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
-    SimpleItemRecyclerViewAdapter adapter ;
-    List<Item> items ;
-    String ApiKey = "40dccc93-b3d0-86d5-5efe-efd387306fcd";
-    String Call ;
-    SliderLayout mDemoSlider;
-    int index = 0 ;
-    Context context;
+    private ItemRecyclerViewAdapter adapter ;
+    private List<Item> items ;
+    private String Call ;
+    private SliderLayout mDemoSlider;
+    private int index = 0 ;
+    private Context context;
 
-    public Json(SimpleItemRecyclerViewAdapter adapter, List<Item> items,String call) {
+    public Json(ItemRecyclerViewAdapter adapter, Context context, List<Item> items, String call) {
         this.adapter = adapter;
         this.items = items ;
         this.Call = call ;
+        this.context = context ;
     }
 
     public Json(SliderLayout mDemoSlider,Context context, String call)
@@ -57,10 +53,15 @@ public class Json extends AsyncTask<String, Void, String>  implements BaseSlider
     @Override
     protected String doInBackground(String... params) {
         try {
-            return doPost("http://192.168.1.132/Api/" + Call + "?apiToken=" + ApiKey);
+            return doPost("http://192.168.88.10:4501/Api/" + Call + "?apiToken=" + Utilities.ApiKey);
         } catch (IOException e) {
             return "Unable to retrieve data. URL may be invalid.";
         }
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
     }
 
     @Override
@@ -69,18 +70,20 @@ public class Json extends AsyncTask<String, Void, String>  implements BaseSlider
             adapter.notifyDataSetChanged();
         else if (mDemoSlider != null)
         {
+            mDemoSlider.stopAutoCycle();
             for (Item featuredItem : items){
-
                 CustomSlider customSlider = new CustomSlider(mDemoSlider.getContext());
-                customSlider.description(featuredItem.getName()).image(featuredItem.getImageUrl())
-                        .setScaleType(BaseSliderView.ScaleType.Fit).setOnSliderClickListener(this);
+                customSlider.description(featuredItem.getName())
+                        .image(featuredItem.getImageUrl())
+                        .setScaleType(BaseSliderView.ScaleType.Fit)
+                        .setOnSliderClickListener(this);
                 customSlider.setPrice(featuredItem.getPrice());
                 mDemoSlider.addSlider(customSlider);
             }
 
             mDemoSlider.setPresetTransformer(SliderLayout.Transformer.FlipHorizontal);
-            mDemoSlider.setDuration(4000);
             mDemoSlider.addOnPageChangeListener(this);
+            mDemoSlider.startAutoCycle(8000,5000,true);
         }
     }
 

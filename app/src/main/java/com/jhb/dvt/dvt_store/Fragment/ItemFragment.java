@@ -1,5 +1,6 @@
 package com.jhb.dvt.dvt_store.Fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jhb.dvt.dvt_store.Adapters.SimpleItemRecyclerViewAdapter;
+import com.jhb.dvt.dvt_store.Adapters.ItemRecyclerViewAdapter;
 import com.jhb.dvt.dvt_store.Models.Item;
 import com.jhb.dvt.dvt_store.R;
 import com.jhb.dvt.dvt_store.Utils.Json;
@@ -24,7 +25,7 @@ public class ItemFragment extends Fragment {
 
     List<Item> itemList = new ArrayList<>();
     private RecyclerView rv;
-    private SimpleItemRecyclerViewAdapter adapter;
+    private ItemRecyclerViewAdapter adapter;
 
     @Nullable
     @Override
@@ -33,9 +34,9 @@ public class ItemFragment extends Fragment {
         rv = (RecyclerView) v.findViewById(R.id.items_List);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        adapter = new SimpleItemRecyclerViewAdapter(itemList);
+        adapter = new ItemRecyclerViewAdapter(itemList);
         rv.setAdapter(adapter);
-        new Json(adapter,itemList,"GetAllProducts").execute();
+        new Json(adapter,container.getContext(),itemList,"GetAllProducts").execute();
 
         return rv;
     }

@@ -19,6 +19,7 @@ import java.util.List;
 public class Utilities {
 
     public static List<BasketItem> basketItems;
+    public static final String ApiKey = "40dccc93-b3d0-86d5-5efe-efd387306fcd";
 
     public static String getCurrency(double value)
     {

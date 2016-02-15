@@ -1,5 +1,7 @@
 package com.jhb.dvt.dvt_store;
 
+import android.app.ProgressDialog;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,9 +11,14 @@ import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.bumptech.glide.request.target.ViewTarget;
 import com.jhb.dvt.dvt_store.Models.BasketItem;
 import com.jhb.dvt.dvt_store.Utils.Utilities;
 
@@ -38,11 +45,24 @@ public class ItemDetailActivity extends AppCompatActivity {
         floatingActionBuy  = (FloatingActionButton) findViewById(R.id.floatingActionBuy);
         floatActionPlus  = (FloatingActionButton) findViewById(R.id.floatActionPlus);
         floatActionMinus  = (FloatingActionButton) findViewById(R.id.floatActionMinus);
+        final ProgressBar loadingBar = (ProgressBar) findViewById(R.id.detail_loading_bar);
 
         checkQuantity();
 
         Glide.with(getApplicationContext()).load(getIntent().getStringExtra("itemImage"))
-                .crossFade().into(itemDetailImage);
+                .crossFade().into(new GlideDrawableImageViewTarget(itemDetailImage) {
+
+            @Override
+            public void onLoadStarted(Drawable placeholder) {
+                super.onLoadStarted(placeholder);
+            }
+
+            @Override
+            public void onResourceReady(GlideDrawable drawable, GlideAnimation anim) {
+                loadingBar.setVisibility(View.INVISIBLE);
+                super.onResourceReady(drawable, anim);
+            }
+        });
 
         itemDetailName.setText(getIntent().getStringExtra("itemName"));
         itemDetailDetails.setText(Html.fromHtml(getIntent().getStringExtra("itemDetails")));
