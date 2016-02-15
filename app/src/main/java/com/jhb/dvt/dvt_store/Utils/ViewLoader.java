@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by CreeD on 2016/02/12.
  */
-public class ViewLoader extends AsyncTask<String, Void, String> implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
+public class ViewLoader extends AsyncTask<Void, Void, Void> implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
     private ItemRecyclerViewAdapter adapter;
     private List<Item> items;
@@ -45,16 +45,17 @@ public class ViewLoader extends AsyncTask<String, Void, String> implements BaseS
     }
 
     @Override
-    protected String doInBackground(String... params) {
+    protected Void doInBackground(Void... params) {
         try {
-            return doPost(Utilities.HostAddress + "/Api/" + Call + "?apiToken=" + Utilities.ApiKey);
+            doPost(Utilities.HostAddress + "/Api/" + Call + "?apiToken=" + Utilities.ApiKey);
         } catch (IOException e) {
-            return "Unable to retrieve data. URL may be invalid.";
+            System.out.println("Unable to retrieve data. URL may be invalid.");
         }
+        return null;
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(Void aVoid) {
         if (adapter != null)
             adapter.notifyDataSetChanged();
         else if (mDemoSlider != null) {
@@ -72,9 +73,10 @@ public class ViewLoader extends AsyncTask<String, Void, String> implements BaseS
             mDemoSlider.addOnPageChangeListener(this);
             mDemoSlider.startAutoCycle(8000, 5000, true);
         }
+        super.onPostExecute(aVoid);
     }
 
-    private String doPost(String myUrl) throws IOException {
+    private void doPost(String myUrl) throws IOException {
         try {
             URL url = new URL(myUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -83,13 +85,10 @@ public class ViewLoader extends AsyncTask<String, Void, String> implements BaseS
             conn.setRequestMethod("GET");
             conn.setDoInput(true);
             conn.connect();
-            String result = new JsonRead().readJsonStream(items,conn.getInputStream());
-            int response = conn.getResponseCode();
-            System.out.println("ERROR: " + result);
-            return result;
+            new JsonRead().readJsonStream(items,conn.getInputStream());
+            conn.getResponseCode();
         } catch (Exception es) {
             System.out.println("ERROR: " + es.getMessage());
-            return es.getMessage();
         }
     }
 

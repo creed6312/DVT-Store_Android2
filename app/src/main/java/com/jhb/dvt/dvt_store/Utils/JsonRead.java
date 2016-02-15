@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class JsonRead {
 
-    public String readJsonStream(List<Item> items, InputStream in) throws IOException {
+    public void readJsonStream(List<Item> items, InputStream in) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
         try {
             reader.beginArray();
@@ -21,10 +21,9 @@ public class JsonRead {
                 items.add(readItem(reader));
             reader.endArray();
         } catch (Exception es) {
-            return es.getMessage();
+            System.out.println(es.getMessage());
         } finally {
             reader.close();
-            return "Success";
         }
     }
 
