@@ -38,51 +38,6 @@
             android:textColor="@color/colorPrimary"
             android:textSize="22sp" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatingActionBuy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="40dp"
-            android:src="@drawable/cart"
-            app:backgroundTint="@android:color/holo_blue_light" />
-
-        <TextView
-            android:id="@+id/idDetailQuantity"
-            android:layout_width="51dp"
-            android:layout_height="28dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="42dp"
-            android:layout_marginTop="14dp"
-            android:background="@android:color/holo_blue_dark"
-            android:gravity="center"
-            android:text="2"
-            android:textColor="@android:color/white" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatActionMinus"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="85dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/minus"
-            app:backgroundTint="@android:color/holo_blue_light" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatActionPlus"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/plus"
-            app:backgroundTint="@android:color/holo_blue_light" />
 
     </RelativeLayout>
 
@@ -132,6 +87,58 @@
             </RelativeLayout>
 
     </RelativeLayout>
-    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionBuy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/cart"
+        app:backgroundTint="@android:color/holo_blue_light" />
+
+    <TextView
+        android:id="@+id/idDetailQuantity"
+        android:layout_width="51dp"
+        android:layout_height="28dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="42dp"
+        android:layout_marginTop="14dp"
+        android:background="@android:color/holo_blue_dark"
+        android:gravity="center"
+        android:text="2"
+        android:textColor="@android:color/white" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatActionMinus"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="85dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/minus"
+        app:backgroundTint="@android:color/holo_blue_light" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatActionPlus"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/plus"
+        app:backgroundTint="@android:color/holo_blue_light" />
+
+</RelativeLayout>
+</LinearLayout>
 </ScrollView>
 </LinearLayout>
