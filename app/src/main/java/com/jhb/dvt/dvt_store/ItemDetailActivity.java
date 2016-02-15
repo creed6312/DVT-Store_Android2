@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,6 +28,8 @@ public class ItemDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         ImageView itemDetailImage  = (ImageView) findViewById(R.id.idItemDetailImage);
         TextView itemDetailName  = (TextView) findViewById(R.id.idItemDetailName);
         TextView itemDetailDetails  = (TextView) findViewById(R.id.idItemDetailDetails);
@@ -46,6 +50,12 @@ public class ItemDetailActivity extends AppCompatActivity {
 
         floatingActionBuy();
         floatActionIncreaseDecrease();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 
     public void checkQuantity()
