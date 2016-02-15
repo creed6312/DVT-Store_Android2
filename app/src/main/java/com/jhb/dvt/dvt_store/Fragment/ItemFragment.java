@@ -1,6 +1,5 @@
 package com.jhb.dvt.dvt_store.Fragment;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,7 +12,7 @@ import android.view.ViewGroup;
 import com.jhb.dvt.dvt_store.Adapters.ItemRecyclerViewAdapter;
 import com.jhb.dvt.dvt_store.Models.Item;
 import com.jhb.dvt.dvt_store.R;
-import com.jhb.dvt.dvt_store.Utils.Json;
+import com.jhb.dvt.dvt_store.Utils.ViewLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +35,7 @@ public class ItemFragment extends Fragment {
 
         adapter = new ItemRecyclerViewAdapter(itemList);
         rv.setAdapter(adapter);
-        new Json(adapter,container.getContext(),itemList,"GetAllProducts").execute();
+        new ViewLoader(adapter,container.getContext(),itemList,"GetAllProducts").execute();
 
         return rv;
     }

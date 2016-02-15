@@ -18,7 +18,7 @@
 
             <ImageView
                 android:id="@+id/idListImage"
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
                 android:scaleType="fitXY"
@@ -34,13 +34,13 @@
         <View
             android:id="@+id/idListCardDivider"
             style="@style/DividerVertical"
-            android:layout_marginLeft="130dp" />
+            android:layout_marginLeft="150dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="135dp"
+            android:layout_marginLeft="155dp"
             android:orientation="vertical">
 
             <TextView

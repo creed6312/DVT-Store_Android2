@@ -1,12 +1,9 @@
 package com.jhb.dvt.dvt_store.Utils;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
@@ -16,8 +13,6 @@ import com.jhb.dvt.dvt_store.ItemDetailActivity;
 import com.jhb.dvt.dvt_store.Models.Item;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -26,7 +21,7 @@ import java.util.List;
 /**
  * Created by CreeD on 2016/02/12.
  */
-public class Json extends AsyncTask<String, Void, String> implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
+public class ViewLoader extends AsyncTask<String, Void, String> implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
     private ItemRecyclerViewAdapter adapter;
     private List<Item> items;
@@ -35,14 +30,14 @@ public class Json extends AsyncTask<String, Void, String> implements BaseSliderV
     private int index = 0;
     private Context context;
 
-    public Json(ItemRecyclerViewAdapter adapter, Context context, List<Item> items, String call) {
+    public ViewLoader(ItemRecyclerViewAdapter adapter, Context context, List<Item> items, String call) {
         this.adapter = adapter;
         this.items = items;
         this.Call = call;
         this.context = context;
     }
 
-    public Json(SliderLayout mDemoSlider, Context context, String call) {
+    public ViewLoader(SliderLayout mDemoSlider, Context context, String call) {
         this.mDemoSlider = mDemoSlider;
         this.items = new ArrayList<>();
         this.Call = call;
@@ -52,7 +47,7 @@ public class Json extends AsyncTask<String, Void, String> implements BaseSliderV
     @Override
     protected String doInBackground(String... params) {
         try {
-            return doPost("http://creed.ddns.net:4501/Api/" + Call + "?apiToken=" + Utilities.ApiKey);
+            return doPost(Utilities.HostAddress + "/Api/" + Call + "?apiToken=" + Utilities.ApiKey);
         } catch (IOException e) {
             return "Unable to retrieve data. URL may be invalid.";
         }
@@ -73,7 +68,6 @@ public class Json extends AsyncTask<String, Void, String> implements BaseSliderV
                 customSlider.setPrice(featuredItem.getPrice());
                 mDemoSlider.addSlider(customSlider);
             }
-
             mDemoSlider.setPresetTransformer(SliderLayout.Transformer.FlipHorizontal);
             mDemoSlider.addOnPageChangeListener(this);
             mDemoSlider.startAutoCycle(8000, 5000, true);
@@ -89,7 +83,7 @@ public class Json extends AsyncTask<String, Void, String> implements BaseSliderV
             conn.setRequestMethod("GET");
             conn.setDoInput(true);
             conn.connect();
-            String result = readJsonStream(conn.getInputStream());
+            String result = new JsonRead().readJsonStream(items,conn.getInputStream());
             int response = conn.getResponseCode();
             System.out.println("ERROR: " + result);
             return result;
@@ -97,54 +91,6 @@ public class Json extends AsyncTask<String, Void, String> implements BaseSliderV
             System.out.println("ERROR: " + es.getMessage());
             return es.getMessage();
         }
-    }
-
-    public String readJsonStream(InputStream in) throws IOException {
-        com.google.gson.stream.JsonReader reader = new com.google.gson.stream.JsonReader(new InputStreamReader(in, "UTF-8"));
-        try {
-            reader.beginArray();
-            while (reader.hasNext()) {
-                items.add(readItem(reader));
-            }
-            reader.endArray();
-        } catch (Exception es) {
-            return es.getMessage();
-        } finally {
-            reader.close();
-            return "Success";
-        }
-    }
-
-    public Item readItem(com.google.gson.stream.JsonReader reader) throws IOException {
-        Item i = new Item();
-
-        reader.beginObject();
-        while (reader.hasNext()) {
-            String name = reader.nextName();
-
-            switch (name) {
-                case "Id":
-                    i.setId(reader.nextString());
-                    break;
-                case "Name":
-                    i.setName(reader.nextString());
-                    break;
-                case "Price":
-                    i.setPrice(reader.nextDouble());
-                    break;
-                case "Description":
-                    i.setDetails(reader.nextString());
-                    break;
-                case "Url":
-                    i.setImageUrl(reader.nextString());
-                    break;
-                default:
-                    reader.skipValue();
-                    break;
-            }
-        }
-        reader.endObject();
-        return i;
     }
 
     @Override
@@ -159,17 +105,11 @@ public class Json extends AsyncTask<String, Void, String> implements BaseSliderV
     }
 
     @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
+    public void onPageSelected(int position) { index = position; }
 
     @Override
-    public void onPageSelected(int position) {
-        index = position;
-    }
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
 
     @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
+    public void onPageScrollStateChanged(int state) { }
 }

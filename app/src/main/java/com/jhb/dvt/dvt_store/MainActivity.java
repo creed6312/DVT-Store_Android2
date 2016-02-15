@@ -1,6 +1,5 @@
 package com.jhb.dvt.dvt_store;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -16,14 +15,12 @@ import android.view.MenuItem;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.jhb.dvt.dvt_store.Fragment.ItemFragment;
-import com.jhb.dvt.dvt_store.Utils.Json;
 import com.jhb.dvt.dvt_store.Utils.Utilities;
+import com.jhb.dvt.dvt_store.Utils.ViewLoader;
 
-public class MainActivity extends AppCompatActivity implements
-        NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private SliderLayout mDemoSlider ;
-    private int featuredIndex ;
 
     FragmentTransaction transaction;
     Fragment ItemFragment;
@@ -65,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements
     {
         mDemoSlider = (SliderLayout) findViewById(R.id.slider);
         mDemoSlider.setCustomIndicator((PagerIndicator) findViewById(R.id.custom_indicator));
-        new Json(mDemoSlider,this,"GetFeatured").execute();
+        new ViewLoader(mDemoSlider,this,"GetFeatured").execute();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
