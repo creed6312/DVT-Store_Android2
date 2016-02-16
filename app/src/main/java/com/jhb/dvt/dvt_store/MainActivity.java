@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     createSlider();
                     addFragments();
-                    Thread.sleep(2500);
+                    Thread.sleep(2550);
 
                     progressDialog.dismiss();
                 } catch (InterruptedException e) {
