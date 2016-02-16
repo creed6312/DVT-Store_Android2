@@ -34,7 +34,6 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
     public int itemsLoadedCounter = 0;
 
-   // public MainActivity mainActivity;
     private final List<Item> mValues;
 
     ProgressDialog progressDialog;

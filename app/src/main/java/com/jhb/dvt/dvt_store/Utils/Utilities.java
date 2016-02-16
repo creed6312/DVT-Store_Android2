@@ -20,8 +20,8 @@ import java.util.List;
 public class Utilities {
 
     public static List<BasketItem> basketItems;
-    public static final String ApiKey = "40dccc93-b3d0-86d5-5efe-efd387306fcd";
-    public static final String HostAddress = "http://creed.ddns.net:4501";
+    public static final String ApiKey = "0ac44d4d-eb43-3e0e-fb86-ba427bee5eb4";
+    public static final String HostAddress = "http://dvtstorage.cloudapp.net";
 
     public static String getCurrency(double value)
     {
