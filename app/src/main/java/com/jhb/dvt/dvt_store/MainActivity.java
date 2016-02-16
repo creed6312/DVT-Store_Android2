@@ -1,5 +1,6 @@
 package com.jhb.dvt.dvt_store;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -25,15 +26,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FragmentTransaction transaction;
     Fragment ItemFragment;
 
+
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        progressDialog = ProgressDialog.show(MainActivity.this, "", "Loading Resources...", false, true);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Utilities.getBasket(getApplicationContext());
-        createSlider();
-        addFragments();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try{
+
+                    createSlider();
+                    addFragments();
+                    Thread.sleep(2500);
+
+                    progressDialog.dismiss();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
