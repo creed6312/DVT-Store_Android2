@@ -19,6 +19,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.bumptech.glide.request.target.Target;
 import com.jhb.dvt.dvt_store.ItemDetailActivity;
+import com.jhb.dvt.dvt_store.MainActivity;
 import com.jhb.dvt.dvt_store.Models.Item;
 import com.jhb.dvt.dvt_store.R;
 import com.jhb.dvt.dvt_store.Utils.Utilities;
@@ -31,10 +32,15 @@ import java.util.List;
  */
 public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder> {
 
+    public int itemsLoadedCounter = 0;
+
+   // public MainActivity mainActivity;
     private final List<Item> mValues;
 
-    public ItemRecyclerViewAdapter(List<Item> items) {
+    ProgressDialog progressDialog;
+    public ItemRecyclerViewAdapter(List<Item> items, ProgressDialog temp) {
         mValues = items;
+        progressDialog = temp;
     }
 
     @Override
@@ -63,6 +69,13 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
                     public void onResourceReady(GlideDrawable drawable, GlideAnimation anim) {
                         holder.mProgress.setVisibility(View.INVISIBLE);
                         super.onResourceReady(drawable, anim);
+                        itemsLoadedCounter++; //when this is ran the item will increment here by one
+
+                                                // increment
+                        if(itemsLoadedCounter == 2){
+                           // mainActivity.progressDialog.dismiss();
+                            progressDialog.dismiss();
+                        }
                     }
                 });
 
@@ -85,7 +98,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     @Override
     public int getItemCount() {
         return mValues.size();
-    }
+    } //number of items to check =
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;

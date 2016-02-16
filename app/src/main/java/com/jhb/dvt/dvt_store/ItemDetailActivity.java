@@ -35,6 +35,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
 
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         ImageView itemDetailImage  = (ImageView) findViewById(R.id.idItemDetailImage);
@@ -61,8 +62,13 @@ public class ItemDetailActivity extends AppCompatActivity {
             public void onResourceReady(GlideDrawable drawable, GlideAnimation anim) {
                 loadingBar.setVisibility(View.INVISIBLE);
                 super.onResourceReady(drawable, anim);
+
+//
             }
         });
+
+
+
 
         itemDetailName.setText(getIntent().getStringExtra("itemName"));
         itemDetailDetails.setText(Html.fromHtml(getIntent().getStringExtra("itemDetails")));

@@ -1,5 +1,6 @@
 package com.jhb.dvt.dvt_store.Fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,6 +26,7 @@ public class ItemFragment extends Fragment {
     List<Item> itemList = new ArrayList<>();
     private RecyclerView rv;
     private ItemRecyclerViewAdapter adapter;
+    ProgressDialog temp;
 
     @Nullable
     @Override
@@ -33,7 +35,8 @@ public class ItemFragment extends Fragment {
         rv = (RecyclerView) v.findViewById(R.id.items_List);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        adapter = new ItemRecyclerViewAdapter(itemList);
+        temp = ProgressDialog.show(container.getContext(), "", "Loading Resources", false, false);
+        adapter = new ItemRecyclerViewAdapter(itemList, temp);
         rv.setAdapter(adapter);
         new ViewLoader(adapter,container.getContext(),itemList,"GetAllProducts").execute();
 

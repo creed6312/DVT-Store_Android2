@@ -1,8 +1,11 @@
 package com.jhb.dvt.dvt_store.Utils;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
+import android.util.Log;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
@@ -30,6 +33,8 @@ public class ViewLoader extends AsyncTask<Void, Void, Void> implements BaseSlide
     private int index = 0;
     private Context context;
 
+    public int itemCounter = 0;
+
     public ViewLoader(ItemRecyclerViewAdapter adapter, Context context, List<Item> items, String call) {
         this.adapter = adapter;
         this.items = items;
@@ -42,6 +47,7 @@ public class ViewLoader extends AsyncTask<Void, Void, Void> implements BaseSlide
         this.items = new ArrayList<>();
         this.Call = call;
         this.context = context;
+        progressDialog = ProgressDialog.show(context, "", "Loading Resources", false, false);
     }
 
     @Override
@@ -54,24 +60,42 @@ public class ViewLoader extends AsyncTask<Void, Void, Void> implements BaseSlide
         return null;
     }
 
+    ProgressDialog progressDialog;
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+    //this is the
+
     @Override
     protected void onPostExecute(Void aVoid) {
+
         if (adapter != null)
             adapter.notifyDataSetChanged();
         else if (mDemoSlider != null) {
             mDemoSlider.stopAutoCycle();
             for (Item featuredItem : items) {
+                itemCounter++;
+
                 CustomSlider customSlider = new CustomSlider(mDemoSlider.getContext());
                 customSlider.description(featuredItem.getName())
                         .image(featuredItem.getImageUrl())
                         .setScaleType(BaseSliderView.ScaleType.Fit)
                         .setOnSliderClickListener(this);
+
+
                 customSlider.setPrice(featuredItem.getPrice());
                 mDemoSlider.addSlider(customSlider);
+                if(featuredItem.equals(items.get(items.size()-1))){
+
+                }
+
             }
             mDemoSlider.setPresetTransformer(SliderLayout.Transformer.FlipHorizontal);
             mDemoSlider.addOnPageChangeListener(this);
             mDemoSlider.startAutoCycle(8000, 5000, true);
+            progressDialog.dismiss();
         }
         super.onPostExecute(aVoid);
     }

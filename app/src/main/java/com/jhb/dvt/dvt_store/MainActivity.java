@@ -1,6 +1,7 @@
 package com.jhb.dvt.dvt_store;
 
 import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -21,40 +22,29 @@ import com.jhb.dvt.dvt_store.Utils.ViewLoader;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private SliderLayout mDemoSlider ;
+    private SliderLayout mDemoSlider;
 
     FragmentTransaction transaction;
     Fragment ItemFragment;
 
 
-    ProgressDialog progressDialog;
+
+    public ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        progressDialog = ProgressDialog.show(MainActivity.this, "", "Loading Resources...", false, true);
+        //progressDialog = ProgressDialog.show(MainActivity.this, "", "Loading Resources...", false, true);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Utilities.getBasket(getApplicationContext());
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+        createSlider();
+        addFragments();
 
-                try{
-
-                    createSlider();
-                    addFragments();
-                    Thread.sleep(2550);
-
-                    progressDialog.dismiss();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+        // progressDialog.dismiss();
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -66,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
 
     @Override
     protected void onResume() {
@@ -80,11 +71,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         transaction.commit();
     }
 
-    private void createSlider()
-    {
+    private void createSlider() {
         mDemoSlider = (SliderLayout) findViewById(R.id.slider);
         mDemoSlider.setCustomIndicator((PagerIndicator) findViewById(R.id.custom_indicator));
-        new ViewLoader(mDemoSlider,this,"GetFeatured").execute();
+        new ViewLoader(mDemoSlider, this, "GetFeatured").execute();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -143,8 +133,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
-    public void doSearch()
-    {
+    public void doSearch() {
 
     }
 }
