@@ -33,8 +33,6 @@ public class ViewLoader extends AsyncTask<Void, Void, Void> implements BaseSlide
     private int index = 0;
     private Context context;
 
-    public int itemCounter = 0;
-
     public ViewLoader(ItemRecyclerViewAdapter adapter, Context context, List<Item> items, String call) {
         this.adapter = adapter;
         this.items = items;
@@ -47,7 +45,7 @@ public class ViewLoader extends AsyncTask<Void, Void, Void> implements BaseSlide
         this.items = new ArrayList<>();
         this.Call = call;
         this.context = context;
-        progressDialog = ProgressDialog.show(context, "", "Loading Resources", false, false);
+        progressDialog = ProgressDialog.show(context, "Please wait", "Loading product catalog...", false, false);
     }
 
     @Override
@@ -74,28 +72,21 @@ public class ViewLoader extends AsyncTask<Void, Void, Void> implements BaseSlide
         if (adapter != null)
             adapter.notifyDataSetChanged();
         else if (mDemoSlider != null) {
-            mDemoSlider.stopAutoCycle();
-            for (Item featuredItem : items) {
-                itemCounter++;
 
+            for (Item featuredItem : items) {
                 CustomSlider customSlider = new CustomSlider(mDemoSlider.getContext());
                 customSlider.description(featuredItem.getName())
                         .image(featuredItem.getImageUrl())
                         .setScaleType(BaseSliderView.ScaleType.Fit)
                         .setOnSliderClickListener(this);
-
-
                 customSlider.setPrice(featuredItem.getPrice());
                 mDemoSlider.addSlider(customSlider);
-                if(featuredItem.equals(items.get(items.size()-1))){
-
-                }
-
             }
-            mDemoSlider.setPresetTransformer(SliderLayout.Transformer.FlipHorizontal);
             mDemoSlider.addOnPageChangeListener(this);
-            mDemoSlider.startAutoCycle(8000, 5000, true);
             progressDialog.dismiss();
+            mDemoSlider.setPresetTransformer(SliderLayout.Transformer.FlipHorizontal);
+            mDemoSlider.setCurrentPosition(0);
+            mDemoSlider.startAutoCycle(8000, 5000, true);
         }
         super.onPostExecute(aVoid);
     }

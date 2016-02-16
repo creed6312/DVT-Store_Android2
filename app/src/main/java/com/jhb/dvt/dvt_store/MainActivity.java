@@ -28,10 +28,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FragmentTransaction transaction;
     Fragment ItemFragment;
 
-
-
-    public ProgressDialog progressDialog;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +37,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
         Utilities.getBasket(getApplicationContext());
 
-        createSlider();
         addFragments();
+        createSlider();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -53,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
-
 
     @Override
     protected void onResume() {
@@ -70,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void createSlider() {
         mDemoSlider = (SliderLayout) findViewById(R.id.slider);
+        mDemoSlider.stopAutoCycle();
         mDemoSlider.setCustomIndicator((PagerIndicator) findViewById(R.id.custom_indicator));
         new ViewLoader(mDemoSlider, this, "GetFeatured").execute();
     }

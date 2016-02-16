@@ -33,7 +33,6 @@ import java.util.List;
 public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder> {
 
     public int itemsLoadedCounter = 0;
-
     private final List<Item> mValues;
 
     ProgressDialog progressDialog;
@@ -68,11 +67,8 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
                     public void onResourceReady(GlideDrawable drawable, GlideAnimation anim) {
                         holder.mProgress.setVisibility(View.INVISIBLE);
                         super.onResourceReady(drawable, anim);
-                        itemsLoadedCounter++; //when this is ran the item will increment here by one
-
-                                                // increment
+                        itemsLoadedCounter++;
                         if(itemsLoadedCounter == 2){
-                           // mainActivity.progressDialog.dismiss();
                             progressDialog.dismiss();
                         }
                     }
