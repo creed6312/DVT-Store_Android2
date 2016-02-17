@@ -82,8 +82,8 @@ public class ViewLoader extends AsyncTask<Void, Void, String> implements BaseSli
         {
             mDemoSlider.stopAutoCycle();
             CustomSlider customSlider = new CustomSlider(mDemoSlider.getContext());
-            customSlider.description("Please check your internet connection.").image(R.drawable.error)
-                    .setScaleType(BaseSliderView.ScaleType.Fit);
+            customSlider.description("Please check your internet connection.")
+                    .setScaleType(BaseSliderView.ScaleType.Fit).image(R.drawable.warn);
             mDemoSlider.addSlider(customSlider);
         }
         progressDialog.dismiss();
