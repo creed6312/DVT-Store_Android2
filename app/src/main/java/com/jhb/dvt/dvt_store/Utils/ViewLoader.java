@@ -4,8 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
@@ -14,6 +12,7 @@ import com.jhb.dvt.dvt_store.Adapters.ItemRecyclerViewAdapter;
 import com.jhb.dvt.dvt_store.CustomSlider;
 import com.jhb.dvt.dvt_store.ItemDetailActivity;
 import com.jhb.dvt.dvt_store.Models.Item;
+import com.jhb.dvt.dvt_store.R;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -24,7 +23,7 @@ import java.util.List;
 /**
  * Created by CreeD on 2016/02/12.
  */
-public class ViewLoader extends AsyncTask<Void, Void, Void> implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
+public class ViewLoader extends AsyncTask<Void, Void, String> implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
     private ItemRecyclerViewAdapter adapter;
     private List<Item> items;
@@ -32,8 +31,10 @@ public class ViewLoader extends AsyncTask<Void, Void, Void> implements BaseSlide
     private SliderLayout mDemoSlider;
     private int index = 0;
     private Context context;
+    private ProgressDialog progressDialog;
 
     public ViewLoader(ItemRecyclerViewAdapter adapter, Context context, List<Item> items, String call) {
+        progressDialog = ProgressDialog.show(context, "Please wait", "Loading product catalog...", false, false);
         this.adapter = adapter;
         this.items = items;
         this.Call = call;
@@ -41,38 +42,28 @@ public class ViewLoader extends AsyncTask<Void, Void, Void> implements BaseSlide
     }
 
     public ViewLoader(SliderLayout mDemoSlider, Context context, String call) {
+        progressDialog = ProgressDialog.show(context, "Please wait", "Loading product catalog...", false, false);
         this.mDemoSlider = mDemoSlider;
         this.items = new ArrayList<>();
         this.Call = call;
         this.context = context;
-        progressDialog = ProgressDialog.show(context, "Please wait", "Loading product catalog...", false, false);
     }
 
     @Override
-    protected Void doInBackground(Void... params) {
+    protected String doInBackground(Void... params) {
         try {
-            doPost(Utilities.HostAddress + "/Api/" + Call + "?apiToken=" + Utilities.ApiKey);
+           return doPost(Utilities.HostAddress + "/Api/" + Call + "?apiToken=" + Utilities.ApiKey);
         } catch (IOException e) {
             System.out.println("Unable to retrieve data. URL may be invalid.");
         }
         return null;
     }
 
-    ProgressDialog progressDialog;
     @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-    }
-
-    //this is the
-
-    @Override
-    protected void onPostExecute(Void aVoid) {
-
-        if (adapter != null)
-            adapter.notifyDataSetChanged();
-        else if (mDemoSlider != null) {
-
+    protected void onPostExecute(String result) {
+        if (adapter != null && result.equals("Success"))
+                adapter.notifyDataSetChanged();
+        else if (mDemoSlider != null && result.equals("Success")) {
             for (Item featuredItem : items) {
                 CustomSlider customSlider = new CustomSlider(mDemoSlider.getContext());
                 customSlider.description(featuredItem.getName())
@@ -83,15 +74,23 @@ public class ViewLoader extends AsyncTask<Void, Void, Void> implements BaseSlide
                 mDemoSlider.addSlider(customSlider);
             }
             mDemoSlider.addOnPageChangeListener(this);
-            progressDialog.dismiss();
             mDemoSlider.setPresetTransformer(SliderLayout.Transformer.FlipHorizontal);
             mDemoSlider.setCurrentPosition(0);
             mDemoSlider.startAutoCycle(8000, 5000, true);
         }
-        super.onPostExecute(aVoid);
+        else if (mDemoSlider != null)
+        {
+            mDemoSlider.stopAutoCycle();
+            CustomSlider customSlider = new CustomSlider(mDemoSlider.getContext());
+            customSlider.description("Please check your internet connection.").image(R.drawable.error)
+                    .setScaleType(BaseSliderView.ScaleType.Fit);
+            mDemoSlider.addSlider(customSlider);
+        }
+        progressDialog.dismiss();
+        super.onPostExecute(result);
     }
 
-    private void doPost(String myUrl) throws IOException {
+    private String doPost(String myUrl) throws IOException {
         try {
             URL url = new URL(myUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -100,10 +99,11 @@ public class ViewLoader extends AsyncTask<Void, Void, Void> implements BaseSlide
             conn.setRequestMethod("GET");
             conn.setDoInput(true);
             conn.connect();
-            new JsonRead().readJsonStream(items,conn.getInputStream());
+            new JsonRead().readJsonStream(items, conn.getInputStream());
             conn.getResponseCode();
+            return "Success";
         } catch (Exception es) {
-            System.out.println("ERROR: " + es.getMessage());
+            return ("ERROR: " + es.getMessage());
         }
     }
 

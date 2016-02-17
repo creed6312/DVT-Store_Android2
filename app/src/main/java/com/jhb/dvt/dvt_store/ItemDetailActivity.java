@@ -52,9 +52,9 @@ public class ItemDetailActivity extends AppCompatActivity {
 
         Glide.with(getApplicationContext()).load(getIntent().getStringExtra("itemImage"))
                 .crossFade().into(new GlideDrawableImageViewTarget(itemDetailImage) {
-
             @Override
             public void onLoadStarted(Drawable placeholder) {
+                loadingBar.setVisibility(View.VISIBLE);
                 super.onLoadStarted(placeholder);
             }
 
@@ -62,13 +62,8 @@ public class ItemDetailActivity extends AppCompatActivity {
             public void onResourceReady(GlideDrawable drawable, GlideAnimation anim) {
                 loadingBar.setVisibility(View.INVISIBLE);
                 super.onResourceReady(drawable, anim);
-
-//
             }
         });
-
-
-
 
         itemDetailName.setText(getIntent().getStringExtra("itemName"));
         itemDetailDetails.setText(Html.fromHtml(getIntent().getStringExtra("itemDetails")));

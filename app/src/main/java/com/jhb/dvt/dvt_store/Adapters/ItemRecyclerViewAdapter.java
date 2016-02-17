@@ -32,13 +32,10 @@ import java.util.List;
  */
 public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder> {
 
-    public int itemsLoadedCounter = 0;
     private final List<Item> mValues;
 
-    ProgressDialog progressDialog;
-    public ItemRecyclerViewAdapter(List<Item> items, ProgressDialog temp) {
+    public ItemRecyclerViewAdapter(List<Item> items) {
         mValues = items;
-        progressDialog = temp;
     }
 
     @Override
@@ -53,7 +50,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
         holder.mListTitle.setText(item.getName());
         holder.mPrice.setText(Utilities.getCurrency(item.getPrice()));
-        Glide.with(holder.mListImage.getContext())
+            Glide.with(holder.mListImage.getContext())
                 .load(mValues.get(position).getImageUrl())
                 .crossFade()
                 .into(new GlideDrawableImageViewTarget(holder.mListImage) {
@@ -67,10 +64,6 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
                     public void onResourceReady(GlideDrawable drawable, GlideAnimation anim) {
                         holder.mProgress.setVisibility(View.INVISIBLE);
                         super.onResourceReady(drawable, anim);
-                        itemsLoadedCounter++;
-                        if(itemsLoadedCounter == 2){
-                            progressDialog.dismiss();
-                        }
                     }
                 });
 
@@ -91,9 +84,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     }
 
     @Override
-    public int getItemCount() {
-        return mValues.size();
-    } //number of items to check =
+    public int getItemCount() {return mValues.size(); }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;

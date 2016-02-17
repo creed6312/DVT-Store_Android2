@@ -24,7 +24,10 @@ public class CustomSlider extends BaseSliderView {
         TextView description = (TextView)v.findViewById(R.id.customDescription);
         TextView price = (TextView)v.findViewById(R.id.customPrice);
         description.setText(getDescription());
-        price.setText(Utilities.getCurrency(getPrice()));
+        if (getPrice() == 0)
+            price.setText("Connection Timed Out!");
+        else
+            price.setText(Utilities.getCurrency(getPrice()));
         bindEventAndShow(v, target);
         return v;
     }

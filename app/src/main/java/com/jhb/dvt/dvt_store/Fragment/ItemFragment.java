@@ -34,8 +34,7 @@ public class ItemFragment extends Fragment {
         rv = (RecyclerView) v.findViewById(R.id.items_List);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        ProgressDialog itemProgress = ProgressDialog.show(container.getContext(), "Please wait", "Loading product catalog...", false, false);
-        adapter = new ItemRecyclerViewAdapter(itemList, itemProgress);
+        adapter = new ItemRecyclerViewAdapter(itemList);
         rv.setAdapter(adapter);
         new ViewLoader(adapter,container.getContext(),itemList,"GetAllProducts").execute();
 
