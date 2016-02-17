@@ -34,9 +34,9 @@ public class ItemDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
 
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         itemDetailImage = (ImageView) findViewById(R.id.idItemDetailImage);
         itemDetailName = (TextView) findViewById(R.id.idItemDetailName);
         itemDetailDetails = (TextView) findViewById(R.id.idItemDetailDetails);
@@ -48,9 +48,9 @@ public class ItemDetailActivity extends AppCompatActivity {
         final ProgressBar loadingBar = (ProgressBar) findViewById(R.id.detail_loading_bar);
 
         checkQuantity();
-
         Glide.with(getApplicationContext()).load(getIntent().getStringExtra("itemImage"))
                 .crossFade().into(new GlideDrawableImageViewTarget(itemDetailImage) {
+
             @Override
             public void onLoadStarted(Drawable placeholder) {
                 loadingBar.setVisibility(View.VISIBLE);
@@ -67,7 +67,6 @@ public class ItemDetailActivity extends AppCompatActivity {
         itemDetailName.setText(getIntent().getStringExtra("itemName"));
         itemDetailDetails.setText(Html.fromHtml(getIntent().getStringExtra("itemDetails")));
         itemDetailPrice.setText(getIntent().getStringExtra("itemPrice"));
-
         floatingActionBuy();
         floatActionIncreaseDecrease();
     }
@@ -110,7 +109,6 @@ public class ItemDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Added to Cart!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-
                 for (int i = 0; i < Utilities.basketItems.size(); i++) {
                     if (Utilities.basketItems.get(i).getId().equals(getIntent().getStringExtra("itemID"))) {
                         Utilities.basketItems.get(i).increaseQuantity();
@@ -149,7 +147,6 @@ public class ItemDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Added to Cart!", Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
-
                 Utilities.basketItems.add(new BasketItem(getIntent().getStringExtra("itemID")));
                 SaveBasket.saveBasket(getApplicationContext());
                 itemDetailQuantity.setText("1");

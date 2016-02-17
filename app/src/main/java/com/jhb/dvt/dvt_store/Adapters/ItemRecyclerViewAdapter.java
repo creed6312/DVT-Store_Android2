@@ -28,6 +28,7 @@ import java.util.List;
 public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder> {
 
     private final List<Item> mValues;
+    View view;
 
     public ItemRecyclerViewAdapter(List<Item> items) {
         mValues = items;
@@ -35,7 +36,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_content, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_content, parent, false);
         return new ViewHolder(view);
     }
 

@@ -23,13 +23,14 @@ import java.util.List;
 public class ItemFragment extends Fragment {
 
     List<Item> itemList = new ArrayList<>();
+    View view;
     private RecyclerView recyclerView;
     private ItemRecyclerViewAdapter itemRecyclerViewAdapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.item_list, container, false);
+        view = inflater.inflate(R.layout.item_list, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.items_List);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

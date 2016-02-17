@@ -29,21 +29,27 @@ public class JsonRead {
 
     public Item readItem(com.google.gson.stream.JsonReader reader) throws IOException {
         Item i = new Item();
+        try{
+            reader.beginObject();
+            while (reader.hasNext()) {
+                String name = reader.nextName();
 
-        reader.beginObject();
-        while (reader.hasNext()) {
-            String name = reader.nextName();
-
-            switch (name) {
-                case "Id": i.setId(reader.nextString()); break;
-                case "Name": i.setName(reader.nextString()); break;
-                case "Price":  i.setPrice(reader.nextDouble()); break;
-                case "Description": i.setDetails(reader.nextString()); break;
-                case "Url": i.setImageUrl(reader.nextString()); break;
-                default: reader.skipValue(); break;
+                switch (name) {
+                    case "Id": i.setId(reader.nextString()); break;
+                    case "Name": i.setName(reader.nextString()); break;
+                    case "Price":  i.setPrice(reader.nextDouble()); break;
+                    case "Description": i.setDetails(reader.nextString()); break;
+                    case "Url": i.setImageUrl(reader.nextString()); break;
+                    default: reader.skipValue(); break;
+                }
             }
+            reader.endObject();
+
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
         }
-        reader.endObject();
+
+
         return i;
     }
 }

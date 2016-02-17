@@ -21,16 +21,16 @@ import com.jhb.dvt.dvt_store.Utils.ViewLoader;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private SliderLayout mDemoSlider;
-
     FragmentTransaction transaction;
     Fragment ItemFragment;
     NavigationView navigationView;
     DrawerLayout drawer;
+    ActionBarDrawerToggle toggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Utilities.getBasket(getApplicationContext());
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         createSlider();
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
