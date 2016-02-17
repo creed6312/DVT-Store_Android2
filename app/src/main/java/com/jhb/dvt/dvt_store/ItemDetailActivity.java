@@ -21,7 +21,7 @@ import com.jhb.dvt.dvt_store.Utils.SaveBasket;
 import com.jhb.dvt.dvt_store.Utils.Utilities;
 
 public class ItemDetailActivity extends AppCompatActivity {
-
+    
     TextView itemDetailQuantity;
     ImageView itemDetailImage;
     TextView itemDetailName;
@@ -89,7 +89,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         hideQuantity();
     }
 
-    public void hideQuantity() {
+    private void hideQuantity() {
         floatingActionBuy.setVisibility(View.VISIBLE);
         floatActionMinus.setVisibility(View.INVISIBLE);
         floatActionPlus.setVisibility(View.INVISIBLE);
@@ -142,6 +142,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
                 Utilities.basketItems.add(new BasketItem(getIntent().getStringExtra("itemID")));
                 SaveBasket.saveBasket(getApplicationContext());
+                itemDetailQuantity.setText("1");
                 showQuantity();
             }});
     }

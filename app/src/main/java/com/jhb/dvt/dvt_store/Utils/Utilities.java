@@ -38,4 +38,5 @@ public class Utilities {
         if (json.equals(""))
             basketItems = new ArrayList<>();
     }
+
 }
