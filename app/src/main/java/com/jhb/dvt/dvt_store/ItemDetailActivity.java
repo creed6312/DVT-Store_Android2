@@ -89,14 +89,14 @@ public class ItemDetailActivity extends AppCompatActivity {
         hideQuantity();
     }
 
-    private void hideQuantity() {
+    public void hideQuantity() {
         floatingActionBuy.setVisibility(View.VISIBLE);
         floatActionMinus.setVisibility(View.INVISIBLE);
         floatActionPlus.setVisibility(View.INVISIBLE);
         itemDetailQuantity.setVisibility(View.INVISIBLE);
     }
 
-    private void showQuantity() {
+    void showQuantity() {
         floatingActionBuy.setVisibility(View.INVISIBLE);
         itemDetailQuantity.setVisibility(View.VISIBLE);
         floatActionMinus.setVisibility(View.VISIBLE);
@@ -115,11 +115,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                         itemDetailQuantity.setText(String.valueOf(Utilities.basketItems.get(i).getQuantity()));
                         SaveBasket.saveBasket(getApplicationContext());
                         return;
-                    }
-                }
-            }
-        });
-
+                    }}}});
         floatActionMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -135,10 +131,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                         }
                         SaveBasket.saveBasket(getApplicationContext());
                         return;
-                    }
-                }
-            }
-        });
+                    }}}});
     }
 
     public void floatingActionBuy() {
@@ -149,9 +142,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
                 Utilities.basketItems.add(new BasketItem(getIntent().getStringExtra("itemID")));
                 SaveBasket.saveBasket(getApplicationContext());
-                itemDetailQuantity.setText("1");
                 showQuantity();
-            }
-        });
+            }});
     }
 }

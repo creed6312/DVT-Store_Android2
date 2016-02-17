@@ -10,10 +10,8 @@ public class Item {
     private String details;
     private String imageUrl;
     private double price;
-
     public Item() {
     }
-
     public Item(String id, String name, String details, String imageUrl, double price) {
         this.id = id;
         this.name = name;
@@ -21,8 +19,6 @@ public class Item {
         this.imageUrl = imageUrl;
         this.price = price;
     }
-
-
 
     public String getId() {
         return id;

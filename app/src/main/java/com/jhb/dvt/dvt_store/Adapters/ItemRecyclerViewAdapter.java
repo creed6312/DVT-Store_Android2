@@ -26,11 +26,10 @@ import java.util.List;
  * Created by SSardinha on 2016-02-12.
  */
 public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder> {
-
     private final List<Item> mValues;
     View view;
 
-    public ItemRecyclerViewAdapter(List<Item> items) {
+    public ItemRecyclerViewAdapter(List<Item> items) throws NoSuchMethodException {
         mValues = items;
     }
 
@@ -43,14 +42,12 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final Item item = mValues.get(position);
-
         holder.mListTitle.setText(item.getName());
         holder.mPrice.setText(Utilities.getCurrency(item.getPrice()));
         Glide.with(holder.mListImage.getContext())
                 .load(mValues.get(position).getImageUrl())
                 .crossFade()
                 .into(new GlideDrawableImageViewTarget(holder.mListImage) {
-
                     @Override
                     public void onLoadStarted(Drawable placeholder) {
                         super.onLoadStarted(placeholder);
@@ -62,7 +59,6 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
                         super.onResourceReady(drawable, anim);
                     }
                 });
-
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,6 +95,5 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
             mPrice = (TextView) view.findViewById(R.id.idListPrice);
             mProgress = (ProgressBar) view.findViewById(R.id.item_loading_bar);
         }
-
     }
 }

@@ -35,11 +35,9 @@ public class CustomSlider extends BaseSliderView {
         bindEventAndShow(view, imageView);
         return view;
     }
-
     public void setPrice(double Price) {
         mPrice = Price;
     }
-
     public double getPrice() {
         return mPrice;
     }

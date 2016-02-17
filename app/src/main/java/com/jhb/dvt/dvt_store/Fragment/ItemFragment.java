@@ -34,7 +34,11 @@ public class ItemFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.items_List);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        itemRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemList);
+        try {
+            itemRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemList);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
         recyclerView.setAdapter(itemRecyclerViewAdapter);
         new ViewLoader(itemRecyclerViewAdapter, container.getContext(), itemList, "GetAllProducts").execute();
 

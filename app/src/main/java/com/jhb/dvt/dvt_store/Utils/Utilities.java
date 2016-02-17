@@ -17,7 +17,6 @@ import java.util.List;
  * Created by CreeD on 2016/02/10.
  */
 public class Utilities {
-
     public static List<BasketItem> basketItems;
     public static final String ApiKey = "0ac44d4d-eb43-3e0e-fb86-ba427bee5eb4";
     public static final String HostAddress = "http://dvtstorage.cloudapp.net";
