@@ -1,6 +1,5 @@
 package com.jhb.dvt.dvt_store.Adapters;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -14,17 +13,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-import com.bumptech.glide.request.target.Target;
 import com.jhb.dvt.dvt_store.ItemDetailActivity;
-import com.jhb.dvt.dvt_store.MainActivity;
 import com.jhb.dvt.dvt_store.Models.Item;
 import com.jhb.dvt.dvt_store.R;
 import com.jhb.dvt.dvt_store.Utils.Utilities;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,7 +45,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
         holder.mListTitle.setText(item.getName());
         holder.mPrice.setText(Utilities.getCurrency(item.getPrice()));
-            Glide.with(holder.mListImage.getContext())
+        Glide.with(holder.mListImage.getContext())
                 .load(mValues.get(position).getImageUrl())
                 .crossFade()
                 .into(new GlideDrawableImageViewTarget(holder.mListImage) {
@@ -84,7 +79,9 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     }
 
     @Override
-    public int getItemCount() {return mValues.size(); }
+    public int getItemCount() {
+        return mValues.size();
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;

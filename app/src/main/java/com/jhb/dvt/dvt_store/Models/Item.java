@@ -5,31 +5,28 @@ package com.jhb.dvt.dvt_store.Models;
  */
 public class Item {
 
-    private String id ;
-    private String name ;
-    private String details ;
-    private String imageUrl ;
-    private double price ;
+    private String id;
+    private String name;
+    private String details;
+    private String imageUrl;
+    private double price;
 
-    public Item(String id, String name, String details, String imageUrl, double price)
-    {
-        this.id = id ;
-        this.name = name ;
-        this.details = details ;
-        this.imageUrl = imageUrl ;
-        this.price = price ;
+    public Item() {
     }
 
-    public Item(String id,String name)
-    {
-        this.id = id ;
-        this.name = name ;
+    public Item(String id, String name, String details, String imageUrl, double price) {
+        this.id = id;
+        this.name = name;
+        this.details = details;
+        this.imageUrl = imageUrl;
+        this.price = price;
     }
 
-    public Item()
-    {
-
+    public Item(String id, String name) {
+        this.id = id;
+        this.name = name;
     }
+
 
     public String getId() {
         return id;

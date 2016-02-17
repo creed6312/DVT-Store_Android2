@@ -5,25 +5,22 @@ import java.io.Serializable;
 /**
  * Created by SSardinha on 2016-02-11.
  */
-public class BasketItem implements Serializable{
+public class BasketItem implements Serializable {
 
-    private String id ;
-    private int quantity ;
+    private String id;
+    private int quantity;
 
-    public BasketItem(String id)
-    {
-        this.id = id ;
-        this.quantity = 1 ;
+    public BasketItem(String id) {
+        this.id = id;
+        this.quantity = 1;
     }
 
-    public void increaseQuantity()
-    {
-        this.quantity += 1 ;
+    public void increaseQuantity() {
+        this.quantity += 1;
     }
 
-    public void decreaseQuantity()
-    {
-        this.quantity -= 1 ;
+    public void decreaseQuantity() {
+        this.quantity -= 1;
     }
 
     public String getId() {

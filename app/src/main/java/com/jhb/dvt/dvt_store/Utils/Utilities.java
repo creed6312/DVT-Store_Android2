@@ -11,7 +11,6 @@ import com.jhb.dvt.dvt_store.Models.BasketItem;
 import java.lang.reflect.Type;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
 
 /**
@@ -28,16 +27,6 @@ public class Utilities {
         NumberFormat formatString = NumberFormat.getInstance();
         formatString.setMinimumFractionDigits(2);
         return "R" + formatString.format(value);
-    }
-
-    public static void saveBasket(Context appContext)
-    {
-        SharedPreferences appSharedPrefs = PreferenceManager.getDefaultSharedPreferences(appContext);
-        SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(basketItems);
-        prefsEditor.putString("myBasket", json);
-        prefsEditor.commit();
     }
 
     public static void getBasket(Context appContext)

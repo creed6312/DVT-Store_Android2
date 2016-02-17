@@ -1,12 +1,10 @@
 package com.jhb.dvt.dvt_store;
 
-import android.app.ProgressDialog;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,12 +16,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-import com.bumptech.glide.request.target.ViewTarget;
 import com.jhb.dvt.dvt_store.Models.BasketItem;
+import com.jhb.dvt.dvt_store.Utils.SaveBasket;
 import com.jhb.dvt.dvt_store.Utils.Utilities;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ItemDetailActivity extends AppCompatActivity {
 
@@ -121,7 +116,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                     if (Utilities.basketItems.get(i).getId().equals(getIntent().getStringExtra("itemID"))) {
                         Utilities.basketItems.get(i).increaseQuantity();
                         itemDetailQuantity.setText(String.valueOf(Utilities.basketItems.get(i).getQuantity()));
-                        Utilities.saveBasket(getApplicationContext());
+                        SaveBasket.saveBasket(getApplicationContext());
                         return;
                     }
                 }
@@ -143,7 +138,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                             Utilities.basketItems.remove(i);
                             hideQuantity();
                         }
-                        Utilities.saveBasket(getApplicationContext());
+                        SaveBasket.saveBasket(getApplicationContext());
                         return;
                     }
                 }
@@ -160,7 +155,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
 
                 Utilities.basketItems.add(new BasketItem(getIntent().getStringExtra("itemID")));
-                Utilities.saveBasket(getApplicationContext());
+                SaveBasket.saveBasket(getApplicationContext());
                 itemDetailQuantity.setText("1");
                 showQuantity();
             }
