@@ -11,7 +11,11 @@ import com.jhb.dvt.dvt_store.Utils.Utilities;
 
 public class CustomSlider extends BaseSliderView {
 
-    private double mPrice ;
+    private double mPrice;
+    View view;
+    ImageView imageView;
+    TextView textViewDescription;
+    TextView textViewPrice;
 
     public CustomSlider(Context context) {
         super(context);
@@ -19,25 +23,22 @@ public class CustomSlider extends BaseSliderView {
 
     @Override
     public View getView() {
-        View v = LayoutInflater.from(getContext()).inflate(R.layout.custom_slider,null);
-        ImageView target = (ImageView)v.findViewById(R.id.daimajia_slider_image);
-        TextView description = (TextView)v.findViewById(R.id.customDescription);
-        TextView price = (TextView)v.findViewById(R.id.customPrice);
-        description.setText(getDescription());
+        view = LayoutInflater.from(getContext()).inflate(R.layout.custom_slider, null);
+        imageView = (ImageView) view.findViewById(R.id.daimajia_slider_image);
+        textViewDescription = (TextView) view.findViewById(R.id.customDescription);
+        textViewPrice = (TextView) view.findViewById(R.id.customPrice);
+        textViewDescription.setText(getDescription());
         if (getPrice() == 0)
-            price.setText("Connection Timed Out!");
+            textViewPrice.setText("Connection Timed Out!");
         else
-            price.setText(Utilities.getCurrency(getPrice()));
-        bindEventAndShow(v, target);
-        return v;
+            textViewPrice.setText(Utilities.getCurrency(getPrice()));
+        bindEventAndShow(view, imageView);
+        return view;
     }
-
-    public void setPrice(double Price){
+    public void setPrice(double Price) {
         mPrice = Price;
     }
-
-    public double getPrice()
-    {
+    public double getPrice() {
         return mPrice;
     }
 }

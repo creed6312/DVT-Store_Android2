@@ -11,14 +11,12 @@ import com.jhb.dvt.dvt_store.Models.BasketItem;
 import java.lang.reflect.Type;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
 
 /**
  * Created by CreeD on 2016/02/10.
  */
 public class Utilities {
-
     public static List<BasketItem> basketItems;
     public static final String ApiKey = "0ac44d4d-eb43-3e0e-fb86-ba427bee5eb4";
     public static final String HostAddress = "http://dvtstorage.cloudapp.net";
@@ -28,16 +26,6 @@ public class Utilities {
         NumberFormat formatString = NumberFormat.getInstance();
         formatString.setMinimumFractionDigits(2);
         return "R" + formatString.format(value);
-    }
-
-    public static void saveBasket(Context appContext)
-    {
-        SharedPreferences appSharedPrefs = PreferenceManager.getDefaultSharedPreferences(appContext);
-        SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(basketItems);
-        prefsEditor.putString("myBasket", json);
-        prefsEditor.commit();
     }
 
     public static void getBasket(Context appContext)
@@ -50,4 +38,5 @@ public class Utilities {
         if (json.equals(""))
             basketItems = new ArrayList<>();
     }
+
 }

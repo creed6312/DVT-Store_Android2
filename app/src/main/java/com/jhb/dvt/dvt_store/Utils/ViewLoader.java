@@ -32,6 +32,7 @@ public class ViewLoader extends AsyncTask<Void, Void, String> implements BaseSli
     private int index = 0;
     private Context context;
     private ProgressDialog progressDialog;
+    CustomSlider customSlider;
 
     public ViewLoader(ItemRecyclerViewAdapter adapter, Context context, List<Item> items, String call) {
         progressDialog = ProgressDialog.show(context, "Please wait", "Loading product catalog...", false, false);
@@ -52,7 +53,7 @@ public class ViewLoader extends AsyncTask<Void, Void, String> implements BaseSli
     @Override
     protected String doInBackground(Void... params) {
         try {
-           return doPost(Utilities.HostAddress + "/Api/" + Call + "?apiToken=" + Utilities.ApiKey);
+            return doPost(Utilities.HostAddress + "/Api/" + Call + "?apiToken=" + Utilities.ApiKey);
         } catch (IOException e) {
             System.out.println("Unable to retrieve data. URL may be invalid.");
         }
@@ -62,10 +63,10 @@ public class ViewLoader extends AsyncTask<Void, Void, String> implements BaseSli
     @Override
     protected void onPostExecute(String result) {
         if (adapter != null && result.equals("Success"))
-                adapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
         else if (mDemoSlider != null && result.equals("Success")) {
             for (Item featuredItem : items) {
-                CustomSlider customSlider = new CustomSlider(mDemoSlider.getContext());
+                customSlider = new CustomSlider(mDemoSlider.getContext());
                 customSlider.description(featuredItem.getName())
                         .image(featuredItem.getImageUrl())
                         .setScaleType(BaseSliderView.ScaleType.Fit)
@@ -77,11 +78,9 @@ public class ViewLoader extends AsyncTask<Void, Void, String> implements BaseSli
             mDemoSlider.setPresetTransformer(SliderLayout.Transformer.FlipHorizontal);
             mDemoSlider.setCurrentPosition(0);
             mDemoSlider.startAutoCycle(8000, 5000, true);
-        }
-        else if (mDemoSlider != null)
-        {
+        } else if (mDemoSlider != null) {
             mDemoSlider.stopAutoCycle();
-            CustomSlider customSlider = new CustomSlider(mDemoSlider.getContext());
+            customSlider = new CustomSlider(mDemoSlider.getContext());
             customSlider.description("Please check your internet connection.")
                     .setScaleType(BaseSliderView.ScaleType.Fit).image(R.drawable.warn);
             mDemoSlider.addSlider(customSlider);
@@ -121,11 +120,11 @@ public class ViewLoader extends AsyncTask<Void, Void, String> implements BaseSli
     }
 
     @Override
-    public void onPageSelected(int position) { index = position; }
-
+    public void onPageSelected(int position) {
+        index = position;
+    }
     @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
-
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
     @Override
-    public void onPageScrollStateChanged(int state) { }
+    public void onPageScrollStateChanged(int state) {}
 }
