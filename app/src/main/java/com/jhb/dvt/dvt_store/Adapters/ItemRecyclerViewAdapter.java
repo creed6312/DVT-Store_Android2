@@ -1,6 +1,5 @@
 package com.jhb.dvt.dvt_store.Adapters;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -14,50 +13,41 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-import com.bumptech.glide.request.target.Target;
 import com.jhb.dvt.dvt_store.ItemDetailActivity;
-import com.jhb.dvt.dvt_store.MainActivity;
 import com.jhb.dvt.dvt_store.Models.Item;
 import com.jhb.dvt.dvt_store.R;
 import com.jhb.dvt.dvt_store.Utils.Utilities;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by SSardinha on 2016-02-12.
  */
 public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder> {
-
-    public int itemsLoadedCounter = 0;
     private final List<Item> mValues;
+    View view;
 
-    ProgressDialog progressDialog;
-    public ItemRecyclerViewAdapter(List<Item> items, ProgressDialog temp) {
+    public ItemRecyclerViewAdapter(List<Item> items) throws NoSuchMethodException {
         mValues = items;
-        progressDialog = temp;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_content, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_content, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final Item item = mValues.get(position);
-
         holder.mListTitle.setText(item.getName());
         holder.mPrice.setText(Utilities.getCurrency(item.getPrice()));
         Glide.with(holder.mListImage.getContext())
                 .load(mValues.get(position).getImageUrl())
                 .crossFade()
                 .into(new GlideDrawableImageViewTarget(holder.mListImage) {
-
                     @Override
                     public void onLoadStarted(Drawable placeholder) {
                         super.onLoadStarted(placeholder);
@@ -67,13 +57,8 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
                     public void onResourceReady(GlideDrawable drawable, GlideAnimation anim) {
                         holder.mProgress.setVisibility(View.INVISIBLE);
                         super.onResourceReady(drawable, anim);
-                        itemsLoadedCounter++;
-                        if(itemsLoadedCounter == 2){
-                            progressDialog.dismiss();
-                        }
                     }
                 });
-
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +78,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     @Override
     public int getItemCount() {
         return mValues.size();
-    } //number of items to check =
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
@@ -110,6 +95,5 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
             mPrice = (TextView) view.findViewById(R.id.idListPrice);
             mProgress = (ProgressBar) view.findViewById(R.id.item_loading_bar);
         }
-
     }
 }

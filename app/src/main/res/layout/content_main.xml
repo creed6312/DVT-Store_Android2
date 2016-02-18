@@ -27,7 +27,6 @@
         android:layout_marginBottom="5dp"
         android:layout_height="175dp"/>
 
-
     <com.daimajia.slider.library.Indicators.PagerIndicator
         android:id="@+id/custom_indicator"
         android:layout_width="wrap_content"

@@ -1,6 +1,5 @@
 package com.jhb.dvt.dvt_store.Fragment;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,21 +23,25 @@ import java.util.List;
 public class ItemFragment extends Fragment {
 
     List<Item> itemList = new ArrayList<>();
-    private RecyclerView rv;
-    private ItemRecyclerViewAdapter adapter;
+    View view;
+    private RecyclerView recyclerView;
+    private ItemRecyclerViewAdapter itemRecyclerViewAdapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.item_list, container, false);
-        rv = (RecyclerView) v.findViewById(R.id.items_List);
-        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        view = inflater.inflate(R.layout.item_list, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.items_List);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        ProgressDialog itemProgress = ProgressDialog.show(container.getContext(), "Please wait", "Loading product catalog...", false, false);
-        adapter = new ItemRecyclerViewAdapter(itemList, itemProgress);
-        rv.setAdapter(adapter);
-        new ViewLoader(adapter,container.getContext(),itemList,"GetAllProducts").execute();
+        try {
+            itemRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemList);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        recyclerView.setAdapter(itemRecyclerViewAdapter);
+        new ViewLoader(itemRecyclerViewAdapter, container.getContext(), itemList, "GetAllProducts").execute();
 
-        return rv;
+        return recyclerView;
     }
 }
