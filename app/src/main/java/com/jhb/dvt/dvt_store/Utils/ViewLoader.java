@@ -60,30 +60,38 @@ public class ViewLoader extends AsyncTask<Void, Void, String> implements BaseSli
         return null;
     }
 
+    public void getFeaturedProducts() {
+        for (Item featuredItem : items) {
+            customSlider = new CustomSlider(mDemoSlider.getContext());
+            customSlider.description(featuredItem.getName())
+                    .image(featuredItem.getImageUrl())
+                    .setScaleType(BaseSliderView.ScaleType.Fit)
+                    .setOnSliderClickListener(this);
+            customSlider.setPrice(featuredItem.getPrice());
+            mDemoSlider.addSlider(customSlider);
+        }
+        mDemoSlider.addOnPageChangeListener(this);
+        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.FlipHorizontal);
+        mDemoSlider.setCurrentPosition(0);
+        mDemoSlider.startAutoCycle(8000, 5000, true);
+    }
+
+    public void CheckNetworkConnection() {
+        mDemoSlider.stopAutoCycle();
+        customSlider = new CustomSlider(mDemoSlider.getContext());
+        customSlider.description("Please check your internet connection.")
+                .setScaleType(BaseSliderView.ScaleType.Fit).image(R.drawable.warn);
+        mDemoSlider.addSlider(customSlider);
+    }
+
     @Override
     protected void onPostExecute(String result) {
         if (adapter != null && result.equals("Success"))
             adapter.notifyDataSetChanged();
         else if (mDemoSlider != null && result.equals("Success")) {
-            for (Item featuredItem : items) {
-                customSlider = new CustomSlider(mDemoSlider.getContext());
-                customSlider.description(featuredItem.getName())
-                        .image(featuredItem.getImageUrl())
-                        .setScaleType(BaseSliderView.ScaleType.Fit)
-                        .setOnSliderClickListener(this);
-                customSlider.setPrice(featuredItem.getPrice());
-                mDemoSlider.addSlider(customSlider);
-            }
-            mDemoSlider.addOnPageChangeListener(this);
-            mDemoSlider.setPresetTransformer(SliderLayout.Transformer.FlipHorizontal);
-            mDemoSlider.setCurrentPosition(0);
-            mDemoSlider.startAutoCycle(8000, 5000, true);
+            getFeaturedProducts();
         } else if (mDemoSlider != null) {
-            mDemoSlider.stopAutoCycle();
-            customSlider = new CustomSlider(mDemoSlider.getContext());
-            customSlider.description("Please check your internet connection.")
-                    .setScaleType(BaseSliderView.ScaleType.Fit).image(R.drawable.warn);
-            mDemoSlider.addSlider(customSlider);
+            CheckNetworkConnection();
         }
         progressDialog.dismiss();
         super.onPostExecute(result);
@@ -121,8 +129,12 @@ public class ViewLoader extends AsyncTask<Void, Void, String> implements BaseSli
     public void onPageSelected(int position) {
         index = position;
     }
+
     @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    }
+
     @Override
-    public void onPageScrollStateChanged(int state) {}
+    public void onPageScrollStateChanged(int state) {
+    }
 }

@@ -28,15 +28,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     TextView itemDetailDetails;
     TextView itemDetailPrice;
     FloatingActionButton floatingActionBuy, floatActionMinus, floatActionPlus;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_detail);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+    public void itemInstantiation(){
         itemDetailImage = (ImageView) findViewById(R.id.idItemDetailImage);
         itemDetailName = (TextView) findViewById(R.id.idItemDetailName);
         itemDetailDetails = (TextView) findViewById(R.id.idItemDetailDetails);
@@ -45,25 +37,29 @@ public class ItemDetailActivity extends AppCompatActivity {
         floatingActionBuy = (FloatingActionButton) findViewById(R.id.floatingActionBuy);
         floatActionPlus = (FloatingActionButton) findViewById(R.id.floatActionPlus);
         floatActionMinus = (FloatingActionButton) findViewById(R.id.floatActionMinus);
+    }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_item_detail);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        itemInstantiation();
         final ProgressBar loadingBar = (ProgressBar) findViewById(R.id.detail_loading_bar);
-
         checkQuantity();
         Glide.with(getApplicationContext()).load(getIntent().getStringExtra("itemImage"))
                 .crossFade().into(new GlideDrawableImageViewTarget(itemDetailImage) {
-
             @Override
             public void onLoadStarted(Drawable placeholder) {
                 loadingBar.setVisibility(View.VISIBLE);
                 super.onLoadStarted(placeholder);
             }
-
             @Override
             public void onResourceReady(GlideDrawable drawable, GlideAnimation animation) {
                 loadingBar.setVisibility(View.INVISIBLE);
                 super.onResourceReady(drawable, animation);
             }
         });
-
         itemDetailName.setText(getIntent().getStringExtra("itemName"));
         itemDetailDetails.setText(Html.fromHtml(getIntent().getStringExtra("itemDetails")));
         itemDetailPrice.setText(getIntent().getStringExtra("itemPrice"));
@@ -71,6 +67,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         floatActionIncrease();
         floatActionDecrease();
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
