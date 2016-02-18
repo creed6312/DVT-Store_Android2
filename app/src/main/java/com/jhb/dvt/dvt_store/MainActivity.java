@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
         Utilities.getBasket(getApplicationContext());
 
+
         addFragments();
         createSlider();
 

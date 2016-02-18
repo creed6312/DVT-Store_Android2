@@ -39,14 +39,15 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/idItemDetailPrice"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/idItemDetailName"
+                    android:layout_width="match_parent"
+                    android:textColor="@android:color/black"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:text="200"
-                    android:textColor="@color/colorPrimary"
+                    android:paddingLeft="20dp"
+                    android:paddingBottom="10dp"
+                    android:text="item Info"
                     android:textSize="22sp" />
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -62,20 +63,24 @@
                         style="@style/DividerHorizontalThin" />
 
                     <TextView
-                        android:id="@+id/idItemDetailName"
-                        android:layout_width="match_parent"
+                        android:id="@+id/idItemDetailPrice"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="20dp"
-                        android:text="item Info"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="200"
+                        android:textColor="@android:color/holo_red_light"
                         android:textSize="22sp" />
 
                     <View
                         android:id="@+id/idDetailDivider"
                         style="@style/DividerHorizontalThin"
-                        android:layout_below="@id/idItemDetailName" />
+                        android:layout_below="@id/idItemDetailPrice" />
 
                     <TextView
                         android:id="@+id/idDetailsTitle"
+                        android:textColor="@android:color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/idDetailDivider"
@@ -88,6 +93,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/idDetailsTitle"
+                        android:textColor="@android:color/black"
                         android:paddingLeft="24dp"
                         android:paddingRight="24dp"
                         android:layout_marginBottom="40dp"/>
@@ -107,7 +113,7 @@
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/floatingActionBuy"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="160dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="5dp"
