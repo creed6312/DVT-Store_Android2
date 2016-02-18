@@ -6,15 +6,15 @@
                 <item
                     android:id="@+id/nav_category1"
                     android:icon="@drawable/cart"
-                    android:title="Category 1" />
+                    android:title="Electronics " />
                 <item
                     android:id="@+id/nav_category2"
                     android:icon="@drawable/cart"
-                    android:title="Category 2" />
+                    android:title="Cups and Glasses" />
                 <item
                     android:id="@+id/nav_category3"
                     android:icon="@drawable/cart"
-                    android:title="Category 3" />
+                    android:title="Accessories " />
             </group>
             </menu>
     </item>
@@ -24,7 +24,7 @@
             <item
                 android:id="@+id/nav_extra1"
                 android:icon="@android:drawable/btn_star"
-                android:title="Extra Stuff" />
+                android:title="Instrument " />
             <item
                 android:id="@+id/nav_extra2"
                 android:icon="@android:drawable/btn_star"

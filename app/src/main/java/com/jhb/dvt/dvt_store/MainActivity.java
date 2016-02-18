@@ -76,7 +76,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_category1) {
-        } else if (id == R.id.nav_category2) {
+        } else if (id == R.id.nav_category2)
+
+        {
 
         } else if (id == R.id.nav_category2) {
 
