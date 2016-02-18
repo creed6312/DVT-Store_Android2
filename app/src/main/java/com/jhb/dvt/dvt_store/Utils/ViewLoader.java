@@ -101,7 +101,9 @@ public class ViewLoader extends AsyncTask<Void, Void, String> implements BaseSli
             conn.connect();
             new JsonRead().readJsonStream(items, conn.getInputStream());
             conn.getResponseCode();
-            return "Success";
+            if (items.size() > 0)
+                return "Success";
+            else return "Fail";
         } catch (Exception es) {
             return ("ERROR: " + es.getMessage());
         }

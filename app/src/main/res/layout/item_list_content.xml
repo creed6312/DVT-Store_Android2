@@ -36,7 +36,7 @@
             style="@style/DividerVertical"
             android:layout_marginLeft="150dp" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
@@ -46,23 +46,37 @@
             <TextView
                 android:id="@+id/idListTitle"
                 android:layout_width="wrap_content"
-                android:layout_height="72dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:paddingTop="4dp"
+                android:paddingTop="15dp"
+                android:textColor="@android:color/black"
                 android:textAppearance="?attr/textAppearanceListItem" />
+
+            <TextView
+                android:id="@+id/txtSeeMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingLeft="5dp"
+                android:paddingBottom="5dp"
+                android:layout_alignParentBottom="true"
+                android:textSize="15dp"
+                android:text="Click to see more."/>
 
             <TextView
                 android:id="@+id/idListPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_above="@id/txtSeeMore"
                 android:paddingLeft="5dp"
-                android:paddingTop="10dp"
+                android:paddingBottom="6dp"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textColor="@android:color/holo_red_light"
                 android:textStyle="bold" />
-        </LinearLayout>
+
+        </RelativeLayout>
 
     </android.support.v7.widget.CardView>
 </RelativeLayout>
