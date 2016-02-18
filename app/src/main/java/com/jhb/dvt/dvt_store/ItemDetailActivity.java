@@ -21,14 +21,15 @@ import com.jhb.dvt.dvt_store.Utils.SaveBasket;
 import com.jhb.dvt.dvt_store.Utils.Utilities;
 
 public class ItemDetailActivity extends AppCompatActivity {
-    
+
     TextView itemDetailQuantity;
     ImageView itemDetailImage;
     TextView itemDetailName;
     TextView itemDetailDetails;
     TextView itemDetailPrice;
     FloatingActionButton floatingActionBuy, floatActionMinus, floatActionPlus;
-    public void itemInstantiation(){
+
+    public void itemInstantiation() {
         itemDetailImage = (ImageView) findViewById(R.id.idItemDetailImage);
         itemDetailName = (TextView) findViewById(R.id.idItemDetailName);
         itemDetailDetails = (TextView) findViewById(R.id.idItemDetailDetails);
@@ -38,6 +39,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         floatActionPlus = (FloatingActionButton) findViewById(R.id.floatActionPlus);
         floatActionMinus = (FloatingActionButton) findViewById(R.id.floatActionMinus);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +56,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                 loadingBar.setVisibility(View.VISIBLE);
                 super.onLoadStarted(placeholder);
             }
+
             @Override
             public void onResourceReady(GlideDrawable drawable, GlideAnimation animation) {
                 loadingBar.setVisibility(View.INVISIBLE);
@@ -100,7 +103,8 @@ public class ItemDetailActivity extends AppCompatActivity {
         floatActionMinus.setVisibility(View.VISIBLE);
         floatActionPlus.setVisibility(View.VISIBLE);
     }
-    public void floatActionIncrease(){
+
+    public void floatActionIncrease() {
         floatActionPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,7 +116,10 @@ public class ItemDetailActivity extends AppCompatActivity {
                         itemDetailQuantity.setText(String.valueOf(Utilities.basketItems.get(i).getQuantity()));
                         SaveBasket.saveBasket(getApplicationContext());
                         return;
-                    }}}});
+                    }
+                }
+            }
+        });
     }
 
     public void floatActionDecrease() {
@@ -132,7 +139,10 @@ public class ItemDetailActivity extends AppCompatActivity {
                         }
                         SaveBasket.saveBasket(getApplicationContext());
                         return;
-                    }}}});
+                    }
+                }
+            }
+        });
     }
 
     public void floatingActionBuy() {
@@ -145,6 +155,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                 SaveBasket.saveBasket(getApplicationContext());
                 itemDetailQuantity.setText("1");
                 showQuantity();
-            }});
+            }
+        });
     }
 }
