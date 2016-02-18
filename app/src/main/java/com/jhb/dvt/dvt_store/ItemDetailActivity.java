@@ -68,7 +68,8 @@ public class ItemDetailActivity extends AppCompatActivity {
         itemDetailDetails.setText(Html.fromHtml(getIntent().getStringExtra("itemDetails")));
         itemDetailPrice.setText(getIntent().getStringExtra("itemPrice"));
         floatingActionBuy();
-        floatActionIncreaseDecrease();
+        floatActionIncrease();
+        floatActionDecrease();
     }
 
     @Override
@@ -102,8 +103,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         floatActionMinus.setVisibility(View.VISIBLE);
         floatActionPlus.setVisibility(View.VISIBLE);
     }
-
-    public void floatActionIncreaseDecrease() {
+    public void floatActionIncrease(){
         floatActionPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,6 +116,10 @@ public class ItemDetailActivity extends AppCompatActivity {
                         SaveBasket.saveBasket(getApplicationContext());
                         return;
                     }}}});
+    }
+
+    public void floatActionDecrease() {
+
         floatActionMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
