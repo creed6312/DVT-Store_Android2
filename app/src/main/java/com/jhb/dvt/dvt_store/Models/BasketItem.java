@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class BasketItem implements Serializable {
 
     private String id;
-    private static int quantity;
+    private int quantity;
 
     public BasketItem(String id) {
         this.id = id;

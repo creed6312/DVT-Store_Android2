@@ -17,7 +17,6 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.jhb.dvt.dvt_store.Models.BasketItem;
-import com.jhb.dvt.dvt_store.Utils.SaveBasket;
 import com.jhb.dvt.dvt_store.Utils.Utilities;
 
 public class ItemDetailActivity extends AppCompatActivity {
@@ -80,6 +79,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     public void checkQuantity() {
         String id = getIntent().getStringExtra("itemID");
+
         for (int i = 0; i < Utilities.basketItems.size(); i++) {
             if (Utilities.basketItems.get(i).getId().equals(id)) {
                 showQuantity();
@@ -114,7 +114,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                     if (Utilities.basketItems.get(i).getId().equals(getIntent().getStringExtra("itemID"))) {
                         Utilities.basketItems.get(i).increaseQuantity();
                         itemDetailQuantity.setText(String.valueOf(Utilities.basketItems.get(i).getQuantity()));
-                        SaveBasket.saveBasket(getApplicationContext());
+                        Utilities.saveBasket(getApplicationContext());
                         return;
                     }
                 }
@@ -137,7 +137,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                             Utilities.basketItems.remove(i);
                             hideQuantity();
                         }
-                        SaveBasket.saveBasket(getApplicationContext());
+                        Utilities.saveBasket(getApplicationContext());
                         return;
                     }
                 }
@@ -152,7 +152,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                 Snackbar.make(view, "Added to Cart!", Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
                 Utilities.basketItems.add(new BasketItem(getIntent().getStringExtra("itemID")));
-                SaveBasket.saveBasket(getApplicationContext());
+                Utilities.saveBasket(getApplicationContext());
                 itemDetailQuantity.setText("1");
                 showQuantity();
             }

@@ -35,8 +35,24 @@ public class Utilities {
         String json = appSharedPrefs.getString("myBasket", "");
         Type type = new TypeToken<List<BasketItem>>(){}.getType();
         basketItems = gson.fromJson(json, type);
+
+        for (int i = 0 ; i < basketItems.size(); i++)
+        {
+            System.out.println(basketItems.get(i).getQuantity());
+        }
+
         if (json.equals(""))
             basketItems = new ArrayList<>();
+    }
+
+    public static void saveBasket(Context appContext)
+    {
+        SharedPreferences appSharedPrefs = PreferenceManager.getDefaultSharedPreferences(appContext);
+        SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(basketItems);
+        prefsEditor.putString("myBasket", json);
+        prefsEditor.commit();
     }
 
 }
