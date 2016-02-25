@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.jhb.dvt.dvt_store.Fragment.ItemFragment;
+import com.jhb.dvt.dvt_store.Utils.FeaturedLoader;
 import com.jhb.dvt.dvt_store.Utils.Utilities;
 import com.jhb.dvt.dvt_store.Utils.ViewLoader;
 
@@ -35,9 +36,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
         Utilities.getBasket(getApplicationContext());
 
-
-        addFragments();
         createSlider();
+     //   addFragments();
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDemoSlider = (SliderLayout) findViewById(R.id.slider);
         mDemoSlider.stopAutoCycle();
         mDemoSlider.setCustomIndicator((PagerIndicator) findViewById(R.id.custom_indicator));
-        new ViewLoader(mDemoSlider, this, "GetFeatured").execute();
+        new FeaturedLoader(mDemoSlider, this, "GetFeatured",getSupportFragmentManager()).execute();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

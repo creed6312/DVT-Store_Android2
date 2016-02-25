@@ -7,8 +7,14 @@ import android.preference.PreferenceManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jhb.dvt.dvt_store.Models.BasketItem;
+import com.jhb.dvt.dvt_store.Models.Item;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.sql.Connection;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +42,6 @@ public class Utilities {
         Type type = new TypeToken<List<BasketItem>>(){}.getType();
         basketItems = gson.fromJson(json, type);
 
-        for (int i = 0 ; i < basketItems.size(); i++)
-        {
-            System.out.println(basketItems.get(i).getQuantity());
-        }
-
         if (json.equals(""))
             basketItems = new ArrayList<>();
     }
@@ -54,5 +55,4 @@ public class Utilities {
         prefsEditor.putString("myBasket", json);
         prefsEditor.commit();
     }
-
 }

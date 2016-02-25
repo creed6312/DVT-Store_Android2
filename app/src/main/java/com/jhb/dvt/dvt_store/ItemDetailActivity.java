@@ -1,5 +1,6 @@
 package com.jhb.dvt.dvt_store;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -48,17 +49,18 @@ public class ItemDetailActivity extends AppCompatActivity {
         itemInstantiation();
         final ProgressBar loadingBar = (ProgressBar) findViewById(R.id.detail_loading_bar);
         checkQuantity();
-        Glide.with(getApplicationContext()).load(getIntent().getStringExtra("itemImage"))
-                .crossFade().into(new GlideDrawableImageViewTarget(itemDetailImage) {
-            @Override
-            public void onLoadStarted(Drawable placeholder) {
-                loadingBar.setVisibility(View.VISIBLE);
-                super.onLoadStarted(placeholder);
-            }
 
-            @Override
-            public void onResourceReady(GlideDrawable drawable, GlideAnimation animation) {
-                loadingBar.setVisibility(View.INVISIBLE);
+        Glide.with(getApplicationContext()).load(getIntent().getStringExtra("itemImage"))
+                .into(new GlideDrawableImageViewTarget(itemDetailImage) {
+                    @Override
+                    public void onLoadStarted(Drawable placeholder) {
+                        loadingBar.setVisibility(View.VISIBLE);
+                        super.onLoadStarted(placeholder);
+                    }
+
+                    @Override
+                    public void onResourceReady(GlideDrawable drawable, GlideAnimation animation) {
+                        loadingBar.setVisibility(View.INVISIBLE);
                 super.onResourceReady(drawable, animation);
             }
         });
