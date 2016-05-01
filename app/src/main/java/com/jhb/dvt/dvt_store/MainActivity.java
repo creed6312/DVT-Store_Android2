@@ -1,132 +1,117 @@
 package com.jhb.dvt.dvt_store;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.jhb.dvt.dvt_store.Fragment.ItemFragment;
-import com.jhb.dvt.dvt_store.Utils.FeaturedLoader;
+import com.jhb.dvt.dvt_store.Fragment.MainActivityFragment;
+import com.jhb.dvt.dvt_store.Services.RegistrationIntentService;
+import com.jhb.dvt.dvt_store.Utils.SlideLoader;
 import com.jhb.dvt.dvt_store.Utils.Utilities;
-import com.jhb.dvt.dvt_store.Utils.ViewLoader;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity {
 
-    private SliderLayout mDemoSlider;
-    FragmentTransaction transaction;
-    Fragment ItemFragment;
-    NavigationView navigationView;
-    DrawerLayout drawer;
-    ActionBarDrawerToggle toggle;
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    MainActivityFragment frag ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
         Utilities.getBasket(getApplicationContext());
+        GCM();
 
-        createSlider();
-     //   addFragments();
-
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        loadMainFragment();
     }
 
-    @Override
-    protected void onResume() {
-        mDemoSlider.startAutoCycle();
-        super.onResume();
-    }
-
-    private void addFragments() {
-        ItemFragment = new ItemFragment();
-        transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, ItemFragment);
+    private void loadMainFragment()
+    {
+        frag = new MainActivityFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.mainContainer, frag);
         transaction.commit();
     }
 
-    private void createSlider() {
-        mDemoSlider = (SliderLayout) findViewById(R.id.slider);
-        mDemoSlider.stopAutoCycle();
-        mDemoSlider.setCustomIndicator((PagerIndicator) findViewById(R.id.custom_indicator));
-        new FeaturedLoader(mDemoSlider, this, "GetFeatured",getSupportFragmentManager()).execute();
-    }
+    private void GCM()
+    {
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                boolean sentToken = sharedPreferences.getBoolean("sentTokenToServer", false);
+                if (sentToken)
+                {
+                    Log.i("GCM","Success");
+                }
+                else
+                {
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
+                }
+            }
+        };
 
-        if (id == R.id.nav_category1) {
-        } else if (id == R.id.nav_category2)
-
-        {
-
-        } else if (id == R.id.nav_category2) {
-
-        } else if (id == R.id.nav_extra1) {
-
-        } else if (id == R.id.nav_extra2) {
-
-        }
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    @Override
-    public void onBackPressed() {
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+        if (checkPlayServices()) {
+            Intent intent = new Intent(this, RegistrationIntentService.class);
+            startService(intent);
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+                Log.i("MAIN", "This device is not supported.");
+                finish();
+            }
+            return false;
+        }
         return true;
     }
 
     @Override
     protected void onStop() {
-        // To prevent a memory leak on rotation, make sure to call stopAutoCycle() on the slider before activity or fragment is destroyed
-        mDemoSlider.stopAutoCycle();
+     //   mDemoSlider.stopAutoCycle();
+        frag.startSlider();
         super.onStop();
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_search) {
-            doSearch();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    protected void onResume() {
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter("registrationComplete"));
+        super.onResume();
     }
 
-    public void doSearch() {
 
+    @Override
+    protected void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
+        super.onPause();
     }
 }

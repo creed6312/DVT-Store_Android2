@@ -22,13 +22,9 @@
     <item android:title="Other Stuff">
         <menu>
             <item
-                android:id="@+id/nav_extra1"
-                android:icon="@android:drawable/btn_star"
-                android:title="Instrument " />
-            <item
-                android:id="@+id/nav_extra2"
-                android:icon="@android:drawable/btn_star"
-                android:title="Extra Stuff" />
+                android:id="@+id/nav_location"
+                android:icon="@drawable/dvt_small"
+                android:title="DVT Locations" />
         </menu>
     </item>
 

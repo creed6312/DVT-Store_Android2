@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_id": "dvt-store",
+    "project_number": "696677849416",
+    "name": "Dvt Store"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696677849416:android:d8f91993cf8e1930",
+        "client_id": "android:com.jhb.dvt.dvt_store",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.jhb.dvt.dvt_store"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 2,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 1
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}

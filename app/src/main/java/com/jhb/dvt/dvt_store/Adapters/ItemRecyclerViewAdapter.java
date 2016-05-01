@@ -27,15 +27,14 @@ import java.util.List;
  */
 public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder> {
     private final List<Item> mValues;
-    View view;
 
-    public ItemRecyclerViewAdapter(List<Item> items) throws NoSuchMethodException {
+    public ItemRecyclerViewAdapter(List<Item> items)  {
         mValues = items;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_content, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_content, parent, false);
         return new ViewHolder(view);
     }
 

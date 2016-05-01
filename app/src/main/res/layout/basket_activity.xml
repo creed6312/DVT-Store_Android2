@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/basket_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <TextView
+        android:id="@+id/CartTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="2dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorDvtYellow"
+        android:text="Your Cart."/>
+
+    <ScrollView
+        android:id="@+id/basket_Scroller"
+        android:layout_below="@id/CartTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="370dp"
+        android:layout_centerHorizontal="true">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/basket_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnCheckOut"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorDvtYellow"
+        android:textSize="17sp"
+        android:textColor="@android:color/white"
+        android:text="Check Out"/>
+
+    <View
+        android:layout_above="@id/btnCheckOut"
+        android:id="@+id/idBasketScrollDivider"
+        android:layout_marginBottom="10dp"
+        style="@style/DividerHorizontalThin"/>
+
+    <TextView
+        android:textSize="18sp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:gravity="center"
+        android:layout_above="@id/idBasketScrollDivider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/basketTotal"
+        android:textColor="@color/colorPrimary"
+        android:text="TOTAL"/>
+
+    <View
+        android:layout_above="@id/basketTotal"
+        android:id="@+id/idBasketScrollDivider2"
+        android:layout_marginBottom="2dp"
+        style="@style/DividerHorizontalThin"/>
+
+</RelativeLayout>

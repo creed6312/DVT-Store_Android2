@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="4dp">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="350dp"
+            android:layout_height="66dp"
+            android:layout_margin="2dp"
+            app:cardCornerRadius="4dp"
+            android:layout_centerHorizontal="true"
+            app:cardElevation="4dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/idBasketItem"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_centerHorizontal="true"
+                    android:scaleType="fitXY"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+
+                <ProgressBar
+                    android:id="@+id/basket_loading_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/idBasketDivider"
+                style="@style/DividerVertical"
+                android:layout_marginLeft="70dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="80dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/basket_item_Title"
+                    android:layout_width="160dp"
+                    android:layout_height="50dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+                <TextView
+                    android:id="@+id/basket_item_Price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:paddingLeft="5dp"
+                    android:paddingBottom="3dp"
+                    android:textSize="16sp"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:layout_width="110dp"
+                    android:layout_height="70dp"
+                    android:layout_centerVertical="true"
+                    android:padding="5dp"
+                    android:layout_alignParentRight="true">
+
+                    <TextView
+                        android:id="@+id/basketQuantity"
+                        android:layout_width="43dp"
+                        android:layout_height="28dp"
+                        android:background="@android:color/holo_blue_dark"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:textColor="@android:color/white" />
+
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/basket_Decrease"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/minus"
+                        app:backgroundTint="@android:color/holo_blue_light" />
+
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/basket_Increase"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/plus"
+                        app:backgroundTint="@android:color/holo_blue_light"
+                        android:layout_alignParentRight="true" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+</RelativeLayout>
