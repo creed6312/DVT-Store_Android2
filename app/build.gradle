@@ -6,8 +6,8 @@ android {
 
     defaultConfig {
         applicationId "com.jhb.dvt.dvt_store"
-        minSdkVersion 15
-        targetSdkVersion 21
+        minSdkVersion 17
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
@@ -35,7 +35,7 @@ android {
 }
 
 ext {
-    supportLibVersion = '23.1.1'
+    supportLibVersion = '23.3.0'
     playServices = '8.4.0'
 }
 

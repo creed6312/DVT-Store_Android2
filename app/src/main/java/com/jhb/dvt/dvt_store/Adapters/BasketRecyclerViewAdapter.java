@@ -1,10 +1,7 @@
 package com.jhb.dvt.dvt_store.Adapters;
 
 import android.app.Activity;
-import android.app.admin.SystemUpdatePolicy;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;

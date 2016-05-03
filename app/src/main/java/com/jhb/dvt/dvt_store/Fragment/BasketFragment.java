@@ -2,7 +2,6 @@ package com.jhb.dvt.dvt_store.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,14 +12,12 @@ import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jhb.dvt.dvt_store.Adapters.BasketRecyclerViewAdapter;
 import com.jhb.dvt.dvt_store.CheckOutActivity;
@@ -28,7 +25,6 @@ import com.jhb.dvt.dvt_store.Constants.Constants;
 import com.jhb.dvt.dvt_store.Models.BasketItem;
 import com.jhb.dvt.dvt_store.Models.Item;
 import com.jhb.dvt.dvt_store.R;
-import com.jhb.dvt.dvt_store.Utils.ConnectionManager;
 import com.jhb.dvt.dvt_store.Utils.Utilities;
 
 import java.io.IOException;
@@ -64,7 +60,7 @@ public class BasketFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.basket_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        items = new ArrayList<>();
+        items  = new ArrayList<>();
         basketRecyclerViewAdapter = new BasketRecyclerViewAdapter(items,textCartTotal,getActivity(),btnCheckOut);
         recyclerView.setAdapter(basketRecyclerViewAdapter);
 
